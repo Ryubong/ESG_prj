@@ -10,6 +10,42 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
 app = Flask(__name__)
 
+#환경 예측모델
+def envi_process_data_and_predict(input_data, datafile, features, target):
+    
+    # 파일 불러오기
+    df = pd.read_csv(datafile, encoding='cp949')
+
+    # 데이터 전처리
+    test = df[df.isna()[target]]
+    train = df[df.notnull()[target]].copy()
+
+    # 등급 숫자로 변경 및 라벨링
+    label_mapping = {'D': 0,'C': 1, 'B': 2, 'B+': 3, 'A': 4, 'A+': 5}
+    train[target] = train[target].map(label_mapping)
+
+    X_train = train.drop([target], axis=1)
+    y_train = train[target]
+
+    X_train = X_train[features]
+
+    # ADASYN 객체
+    sampling_strategy = {0: 1700, 3: 1700, 2: 1200, 4: 1200, 1: 700, 5: 700}
+    adasyn = ADASYN(sampling_strategy=sampling_strategy, random_state=42)
+    X_train_adasyn, y_train_adasyn = adasyn.fit_resample(X_train, y_train)
+
+    # Gradient Boosting Classifier 생성
+    gb_clf = GradientBoostingClassifier(random_state=42)
+
+    # 모델 훈련
+    gb_clf.fit(X_train_adasyn, y_train_adasyn)
+
+    # Predict the grade with the entered feature values
+    predicted_grade = gb_clf.predict(input_data)
+
+    return predicted_grade
+
+#사회 예측모델 
 def social_process_data_and_predict(input_data, datafile, features, target):
     # 파일 불러오기
     df = pd.read_csv(datafile, encoding='cp949')
@@ -46,40 +82,7 @@ def social_process_data_and_predict(input_data, datafile, features, target):
 
     return predicted_grade
 
-def envi_process_data_and_predict(input_data, datafile, features, target):
-    
-    # 파일 불러오기
-    df = pd.read_csv(datafile, encoding='cp949')
-
-    # 데이터 전처리
-    test = df[df.isna()[target]]
-    train = df[df.notnull()[target]].copy()
-
-    # 등급 숫자로 변경 및 라벨링
-    label_mapping = {'D': 0,'C': 1, 'B': 2, 'B+': 3, 'A': 4, 'A+': 5}
-    train[target] = train[target].map(label_mapping)
-
-    X_train = train.drop([target], axis=1)
-    y_train = train[target]
-
-    X_train = X_train[features]
-
-    # ADASYN 객체
-    sampling_strategy = {0: 1700, 3: 1700, 2: 1200, 4: 1200, 1: 700, 5: 700}
-    adasyn = ADASYN(sampling_strategy=sampling_strategy, random_state=42)
-    X_train_adasyn, y_train_adasyn = adasyn.fit_resample(X_train, y_train)
-
-    # Gradient Boosting Classifier 생성
-    gb_clf = GradientBoostingClassifier(random_state=42)
-
-    # 모델 훈련
-    gb_clf.fit(X_train_adasyn, y_train_adasyn)
-
-    # Predict the grade with the entered feature values
-    predicted_grade = gb_clf.predict(input_data)
-
-    return predicted_grade
- 
+#지배구조 예측 모델
 def gov_process_data_and_predict(input_data, datafile, features, target):
     
     # 파일 불러오기
@@ -122,10 +125,42 @@ def gov_process_data_and_predict(input_data, datafile, features, target):
 
     return predicted_grade
 
+
+#메인 홈페이지
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
 
+#환경
+@app.route('/envi', methods=['GET', 'POST'])
+def envi():
+    if request.method == 'POST':
+        # Get input feature values from the form
+
+        greenhouse_gas = float(request.form['greenhouse gas'])
+        energy_usage = float(request.form['energy usage'])
+        Hazardous_Chemical = float(request.form['Hazardous Chemical'])
+        water_usage = int(request.form['water usage'])
+        waste_emissions = int(request.form['waste emissions'])
+
+        # Create a 2D array of the input feature values
+        input_data = [[greenhouse_gas, energy_usage, Hazardous_Chemical, water_usage, waste_emissions]]
+        features = ["온실가스 배출량", "에너지 사용량", "유해화학물질 배출량", "용수 사용량", "폐기물 배출량"]
+        datafile = './envi data.csv'
+        target = "환경"
+
+        # Process the data and make predictions
+        predicted_grade = envi_process_data_and_predict(input_data, datafile, features, target)
+
+        # Map the predicted grade to the corresponding social grade label
+        label_mapping_reverse = {0: 'D', 1: 'C', 2: 'B', 3: 'B+', 4: 'A', 5: 'A+'}
+        predicted_grade_label = label_mapping_reverse[predicted_grade[0]]
+
+        return render_template('envi.html', predicted_grade=predicted_grade_label)
+    
+    return render_template('envi.html', predicted_grade='')
+
+#사회
 @app.route('/social', methods=['GET', 'POST'])
 def social():
     if request.method == 'POST':
@@ -155,34 +190,7 @@ def social():
     
     return render_template('social.html', predicted_grade='')
 
-@app.route('/envi', methods=['GET', 'POST'])
-def envi():
-    if request.method == 'POST':
-        # Get input feature values from the form
-
-        greenhouse_gas = float(request.form['greenhouse gas'])
-        energy_usage = float(request.form['energy usage'])
-        Hazardous_Chemical = float(request.form['Hazardous Chemical'])
-        water_usage = int(request.form['water usage'])
-        waste_emissions = int(request.form['waste emissions'])
-
-        # Create a 2D array of the input feature values
-        input_data = [[greenhouse_gas, energy_usage, Hazardous_Chemical, water_usage, waste_emissions]]
-        features = ["온실가스 배출량", "에너지 사용량", "유해화학물질 배출량", "용수 사용량", "폐기물 배출량"]
-        datafile = './envi data.csv'
-        target = "환경"
-
-        # Process the data and make predictions
-        predicted_grade = envi_process_data_and_predict(input_data, datafile, features, target)
-
-        # Map the predicted grade to the corresponding social grade label
-        label_mapping_reverse = {0: 'D', 1: 'C', 2: 'B', 3: 'B+', 4: 'A', 5: 'A+'}
-        predicted_grade_label = label_mapping_reverse[predicted_grade[0]]
-
-        return render_template('envi.html', predicted_grade=predicted_grade_label)
-    
-    return render_template('envi.html', predicted_grade='')
-
+#지배구조
 @app.route('/gov', methods=['GET', 'POST'])
 def gov():
     if request.method == 'POST':
@@ -211,5 +219,6 @@ def gov():
     
     return render_template('gov.html', predicted_grade='')
 
+#호스트 지정
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5550)
