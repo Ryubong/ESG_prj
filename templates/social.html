@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>사회 Grade Prediction</title>
+    </head>
+    <body>
+        <h1>사회 Grade Prediction</h1>
+        <form action="/social" method="post">
+            <p>신규채용: <input type="text" name="New Recruitment"></p>
+            <p>이직 및 퇴직: <input type="text" name="resignation_retirement"></p>
+            <p>여성 근로자: <input type="text" name="female_workers"></p>
+            <p>총 교육 시간: <input type="text" name="training_hours"></p>
+            <p>사회 공헌 및 투자 금액: <input type="text" name="social_contribution"></p>
+            <p>산업재해: <input type="text" name="industrial_accident"></p>
+            <p><input type="submit" value="예측하기"></p>
+        </form>
+
+        <!-- 예측창 -->
+        <h2>Predicted Grade: {{predicted_grade}}</h2>
+        <button onclick="window.location.href = '/';">메인으로 돌아가기</button>
+    </body>
+</html>

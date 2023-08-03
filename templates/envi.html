@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Environment Grade Prediction</title>
+    </head>
+    <body>
+        <h1>Environment Grade Prediction</h1>
+        <form action="/envi" method="post">
+            <p>온실가스 배출량: <input type="text" name="greenhouse gas"></p>
+            <p>에너지 사용량: <input type="text" name="energy usage"></p>
+            <p>유해화학물질 배출량: <input type="text" name="Hazardous Chemical"></p>
+            <p>용수 사용량: <input type="text" name="water usage"></p>
+            <p>폐기물 배출량: <input type="text" name="waste emissions"></p>
+            <p><input type="submit" value="예측하기"></p>
+        </form>
+
+        <!-- 예측창 -->
+        <h2>Predicted Grade: {{predicted_grade}}</h2>
+        <button onclick="window.location.href = '/';">메인으로 돌아가기</button>
+    </body>
+</html>
