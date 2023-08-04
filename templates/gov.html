@@ -6,11 +6,11 @@
     <body>
         <h1>Governance Grade Prediction</h1>
         <form action="/gov" method="post">
-            <p>이사 출석률: <input type="text" name="attendance rate"></p>
-            <p>이사회 현황 횟수: <input type="text" name="board of directors"></p>
-            <p>이사 명수: <input type="text" name="number of board members"></p>
-            <p>감사위원회 운영 횟수: <input type="text" name="audit committee"></p>
-            <p>발행 주식수 / 발행 가능 주식수: <input type="text" name="stock"></p>
+            <p>이사 출석률: <input type="text" name="attendance rate" value="{{request.form['attendance rate']}}"></p>
+            <p>이사회 현황 횟수: <input type="text" name="board of directors" value="{{request.form['board of directors']}}"></p>
+            <p>이사 명수: <input type="text" name="number of board members" value="{{request.form['number of board members']}}"></p>
+            <p>감사위원회 운영 횟수: <input type="text" name="audit committee" value="{{request.form['audit committee']}}"></p>
+            <p>발행 주식수 / 발행 가능 주식수: <input type="text" name="stock" value="{{request.form['stock']}}"></p>
             <p><input type="submit" value="예측하기"></p>
         </form>
 
