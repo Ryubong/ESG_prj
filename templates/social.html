@@ -2,17 +2,31 @@
 <html>
     <head>
         <title>사회 Grade Prediction</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
     <body>
         <h1>사회 Grade Prediction</h1>
         <form action="/social" method="post">
             <p>신규 채용, 이직 및 퇴직, 여성 근로자는 전체 임직원 수 대비 비율</p>
-            <p>신규채용: <input type="text" name="New Recruitment" value="{{request.form['New Recruitment']}}">  </p>
-            <p>이직 및 퇴직: <input type="text" name="resignation_retirement"value="{{request.form['resignation_retirement']}}"></p>
-            <p>여성 근로자: <input type="text" name="female_workers"value="{{request.form['female_workers']}}"> </p>
-            <p>총 교육 시간: <input type="text" name="training_hours"value="{{request.form['training_hours']}}"> 시간</p>
-            <p>사회 공헌 및 투자 금액: <input type="text" name="social_contribution"value="{{request.form['social_contribution']}}"> 원 (1인당 금액) </p>
-            <p>산업재해: <input type="text" name="industrial_accident"value="{{request.form['industrial_accident']}}"> 건</p>
+            <p>신규채용: <input type="range" min="0" max="1000" name="New Recruitment Slider" id="newRecruitmentSlider" oninput="updateTextInput(this.value);"></br>
+            <input type="text" name="New Recruitment" id="newRecruitment" value="{{request.form['New Recruitment']}}"> 명 </p>
+            
+            <p>이직 및 퇴직: <input type="range" min="0" max="1000" name="resignation_retirement Slider" id="resignationRetirementSlider">
+            <input type="text" name="resignation_retirement" id="resignationRetirement" value="{{request.form['resignation_retirement']}}"> 명 </p>
+            
+            <p>여성 근로자: <input type="range" min="0" max="1000" name="female_workers Slider" id="femaleworkersSlider">
+            <input type="text" name="female_workers" id="femaleworkers" value="{{request.form['female_workers']}}"> 명 </p>
+            
+            <p>총 교육 시간: <input type="range" min="0" max="1000" name="training_hours Slider" id="traininghoursSlider">
+            <input type="text" name="training_hours" id="traininghours" value="{{request.form['training_hours']}}"> 시간</p>
+            
+            <p>사회 공헌 및 투자 금액: <input type="range" min="0" max="1000" name="social_contribution Slider" id="socialcontributionSlider">
+            <input type="text" name="social_contribution" id="socialcontribution" value="{{request.form['social_contribution']}}"> 원 (1인당 금액) </p>
+            
+            <p>산업재해: <input type="range" min="0" max="1000" name="industrial_accident Slider" id="industrialaccidentSlider">
+            <input type="text" name="industrial_accident" id="industrialaccident" value="{{request.form['industrial_accident']}}"> 건</p>
+            
+            
             <p><input type="submit" value="예측하기"></p>
         </form>
 
@@ -22,4 +36,63 @@
         <h2>Predicted Grade: {{predicted_grade}}</h2>
         <button onclick="window.location.href = '/';">메인으로 돌아가기</button>
     </body>
+
+    <!-- slider, text 동기화-->
+    <script>
+        $(document).ready(function() { 
+            // Update text input when the slider value changes
+            $('#newRecruitmentSlider').on('input', function() {
+                $('#newRecruitment').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#newRecruitment').on('input', function() {
+                $('#newRecruitmentSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#resignationRetirementSlider').on('input', function() {
+                $('#resignationRetirement').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#resignationRetirement').on('input', function() {
+                $('#resignationRetirementSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#femaleworkersSlider').on('input', function() {
+                $('#femaleworkers').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#femaleworkers').on('input', function() {
+                $('#femaleworkersSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#traininghoursSlider').on('input', function() {
+                $('#traininghours').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#traininghours').on('input', function() {
+                $('#traininghoursSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#socialcontributionSlider').on('input', function() {
+                $('#socialcontribution').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#socialcontribution').on('input', function() {
+                $('#socialcontributionSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#industrialaccidentSlider').on('input', function() {
+                $('#industrialaccident').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#industrialaccident').on('input', function() {
+                $('#industrialaccidentSlider').val($(this).val());
+            });
+        });
+        </script>
 </html>
