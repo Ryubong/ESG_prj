@@ -6,12 +6,13 @@
     <body>
         <h1>사회 Grade Prediction</h1>
         <form action="/social" method="post">
-            <p>신규채용: <input type="text" name="New Recruitment" value="{{request.form['New Recruitment']}}"></p>
+            <p>신규 채용, 이직 및 퇴직, 여성 근로자는 전체 임직원 수 대비 비율</p>
+            <p>신규채용: <input type="text" name="New Recruitment" value="{{request.form['New Recruitment']}}">  </p>
             <p>이직 및 퇴직: <input type="text" name="resignation_retirement"value="{{request.form['resignation_retirement']}}"></p>
-            <p>여성 근로자: <input type="text" name="female_workers"value="{{request.form['female_workers']}}"></p>
-            <p>총 교육 시간: <input type="text" name="training_hours"value="{{request.form['training_hours']}}"></p>
-            <p>사회 공헌 및 투자 금액: <input type="text" name="social_contribution"value="{{request.form['social_contribution']}}"></p>
-            <p>산업재해: <input type="text" name="industrial_accident"value="{{request.form['industrial_accident']}}"></p>
+            <p>여성 근로자: <input type="text" name="female_workers"value="{{request.form['female_workers']}}"> </p>
+            <p>총 교육 시간: <input type="text" name="training_hours"value="{{request.form['training_hours']}}"> 시간</p>
+            <p>사회 공헌 및 투자 금액: <input type="text" name="social_contribution"value="{{request.form['social_contribution']}}"> 원 (1인당 금액) </p>
+            <p>산업재해: <input type="text" name="industrial_accident"value="{{request.form['industrial_accident']}}"> 건</p>
             <p><input type="submit" value="예측하기"></p>
         </form>
 

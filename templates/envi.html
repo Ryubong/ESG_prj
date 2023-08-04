@@ -6,11 +6,11 @@
     <body>
         <h1>Environment Grade Prediction</h1>
         <form action="/envi" method="post">
-            <p>온실가스 배출량: <input type="text" name="greenhouse gas" value="{{request.form['greenhouse gas']}}"></p>
-            <p>에너지 사용량: <input type="text" name="energy usage" value="{{request.form['energy usage']}}"></p>
-            <p>유해화학물질 배출량: <input type="text" name="Hazardous Chemical" value="{{request.form['Hazardous Chemical']}}"></p>
-            <p>용수 사용량: <input type="text" name="water usage" value="{{request.form['water usage']}}"></p>
-            <p>폐기물 배출량: <input type="text" name="waste emissions" value="{{request.form['waste emissions']}}"></p>
+            <p>온실가스 배출량: <input type="text" name="greenhouse gas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
+            <p>에너지 사용량: <input type="text" name="energy usage" value="{{request.form['energy usage']}}"> TJ</p>
+            <p>유해화학물질 배출량: <input type="text" name="Hazardous Chemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
+            <p>용수 사용량: <input type="text" name="water usage" value="{{request.form['water usage']}}"> T</p>
+            <p>폐기물 배출량: <input type="text" name="waste emissions" value="{{request.form['waste emissions']}}"> T</p>
             <p><input type="submit" value="예측하기"></p>
         </form>
 
