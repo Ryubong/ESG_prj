@@ -221,4 +221,4 @@ def gov():
 
 #호스트 지정 + 웹 페이지 배포
 if __name__ == '__main__':
-    app.run(port = 80, debug=True)
+    app.run( port=80, debug= True, host='0.0.0.0')
