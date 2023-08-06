@@ -8,7 +8,7 @@
         <h1>사회 Grade Prediction</h1>
         <form action="/social" method="post">
             <p>신규 채용, 이직 및 퇴직, 여성 근로자는 전체 임직원 수 대비 비율</p>
-            <p>신규채용: <input type="range" min="0" max="1000" name="New Recruitment Slider" id="newRecruitmentSlider" oninput="updateTextInput(this.value);"></br>
+            <p>신규채용: <input type="range" min="0" max="1000" name="New Recruitment Slider" id="newRecruitmentSlider" oninput="updateTextInput(this.value);">
             <input type="text" name="New Recruitment" id="newRecruitment" value="{{request.form['New Recruitment']}}"> 명 </p>
             
             <p>이직 및 퇴직: <input type="range" min="0" max="1000" name="resignation_retirement Slider" id="resignationRetirementSlider">
