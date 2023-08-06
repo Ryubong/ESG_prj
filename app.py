@@ -6,11 +6,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
-from pyflask import app
 
 
 app = Flask(__name__)
-app.debug = True
 
 #환경 예측모델
 def envi_process_data_and_predict(input_data, datafile, features, target):
@@ -221,7 +219,6 @@ def gov():
     
     return render_template('gov.html', predicted_grade='')
 
-
 #호스트 지정 + 웹 페이지 배포
-from pyflask import app
-app.run(host='127.0.0.1')
+if __name__ == '__main__':
+    app.run(debug=True)
