@@ -31,13 +31,16 @@ def envi_process_data_and_predict(input_data, datafile, features, target):
     # ADASYN 객체
     sampling_strategy = {0: 1700, 3: 1700, 2: 1200, 4: 1200, 1: 700, 5: 700}
     adasyn = ADASYN(sampling_strategy=sampling_strategy, random_state=42)
-    X_train_adasyn, y_train_adasyn = adasyn.fit_resample(X_train, y_train)
+    X, y = adasyn.fit_resample(X_train, y_train)
+
+    #모델 학습을 위해 train, test 분리
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
     # Gradient Boosting Classifier 생성
-    gb_clf = GradientBoostingClassifier(random_state=42)
+    gb_clf = GradientBoostingClassifier(n_estimators=230, learning_rate=0.15, max_depth=4, min_samples_leaf=40, ccp_alpha=0.00000015, random_state=42)
 
     # 모델 훈련
-    gb_clf.fit(X_train_adasyn, y_train_adasyn)
+    gb_clf.fit(X_train, y_train)
 
     # 예측값 도출
     predicted_grade = gb_clf.predict(input_data)
@@ -120,13 +123,16 @@ def gov_process_data_and_predict(input_data, datafile, features, target):
 
     sampling_strategy = {0: 1700, 3: 1700, 2: 1200, 1: 1200, 4: 500} # 1700 1700 1200 1200 500
     adasyn = ADASYN(sampling_strategy=sampling_strategy, random_state=42)
-    X_train_adasyn, y_train_adasyn = adasyn.fit_resample(X_train, y_train)
+    X, y = adasyn.fit_resample(X_train, y_train)
+    
+    #모델 학습을 위해 train, test 분리
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
     # Gradient Boosting Classifier 생성
-    gb_clf = GradientBoostingClassifier(random_state=42)
+    gb_clf = GradientBoostingClassifier(n_estimators=200, learning_rate=0.1, max_depth=5, min_samples_leaf=80, random_state=42)
 
     # 모델 훈련
-    gb_clf.fit(X_train_adasyn, y_train_adasyn)
+    gb_clf.fit(X_train, y_train)
 
     # 예측값 도출
     predicted_grade = gb_clf.predict(input_data)
