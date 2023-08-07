@@ -2,20 +2,89 @@
 <html>
     <head>
         <title>Environment Grade Prediction</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
+    <style>
+        body {
+            background-color: #202534;
+        }
+    </style>
     <body>
-        <h1>Environment Grade Prediction</h1>
+        <h1 style="text-align: center; color: #E1E1E1;">Environment Grade Prediction</h1>
         <form action="/envi" method="post">
-            <p>온실가스 배출량: <input type="text" name="greenhouse gas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
-            <p>에너지 사용량: <input type="text" name="energy usage" value="{{request.form['energy usage']}}"> TJ</p>
-            <p>유해화학물질 배출량: <input type="text" name="Hazardous Chemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
-            <p>용수 사용량: <input type="text" name="water usage" value="{{request.form['water usage']}}"> T</p>
-            <p>폐기물 배출량: <input type="text" name="waste emissions" value="{{request.form['waste emissions']}}"> T</p>
-            <p><input type="submit" value="예측하기"></p>
+            <p style="text-align: center; color: #E1E1E1">온실가스 배출량: <input type="range" min="0" max="1000" name="greenhouse gas Slider" id="greenhousegasSlider" oninput="updateTextInput(this.value);">
+            <input type="text" name="greenhouse gas" id="greenhousegas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
+            
+            <p style="text-align: center; color: #E1E1E1">에너지 사용량: <input type="range" min="0" max="1000" name="energy usage Slider" id="energyusageSlider" oninput="updateTextInput(this.value);">
+            <input type="text" name="energy usage" id="energyusage" value="{{request.form['energy usage']}}"> TJ</p>
+            
+            <p style="text-align: center; color: #E1E1E1">유해화학물질 배출량: <input type="range" min="0" max="1000" name="Hazardous Chemical Slider" id="HazardousChemicalSlider" oninput="updateTextInput(this.value);">
+            <input type="text" name="Hazardous Chemical" id="HazardousChemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
+            
+            <p style="text-align: center; color: #E1E1E1">용수 사용량: <input type="range" min="0" max="1000" name="water usage Slider" id="waterusageSlider" oninput="updateTextInput(this.value);">
+            <input type="text" name="water usage" id="waterusage" value="{{request.form['water usage']}}"> T</p>
+                    
+            <p style="text-align: center; color: #E1E1E1">폐기물 배출량: <input type="range" min="0" max="1000" name="waste emissions Slider" id="wasteemissionsSlider" oninput="updateTextInput(this.value);">
+            <input type="text" name="waste emissions" id="wasteemissions" value="{{request.form['waste emissions']}}"> T</p>
+              
+            <p style="text-align: center; color: #E1E1E1"><input type="submit" value="예측하기"></p>
         </form>
 
         <!-- 예측창 -->
-        <h2>Predicted Grade: {{predicted_grade}}</h2>
-        <button onclick="window.location.href = '/';">메인으로 돌아가기</button>
+        <h2 style="text-align: center; color: #E1E1E1">Predicted Grade: {{predicted_grade}}</h2>
+        <p style="text-align: center; color: #E1E1E1"><button onclick="window.location.href = '/';" >메인으로 돌아가기</button></p>
+
     </body>
+
+    
+    <!-- slider, text 동기화-->
+    <script>
+        $(document).ready(function() { 
+            // Update text input when the slider value changes
+            $('#greenhousegasSlider').on('input', function() {
+                $('#greenhousegas').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#greenhousegas').on('input', function() {
+                $('#greenhousegasSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#energyusageSlider').on('input', function() {
+                $('#energyusage').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#energyusage').on('input', function() {
+                $('#energyusageSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#HazardousChemicalSlider').on('input', function() {
+                $('#HazardousChemical').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#HazardousChemical').on('input', function() {
+                $('#HazardousChemicalSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#waterusageSlider').on('input', function() {
+                $('#waterusage').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#waterusage').on('input', function() {
+                $('#waterusageSlider').val($(this).val());
+            });
+
+            // Update text input when the slider value changes
+            $('#wasteemissionsSlider').on('input', function() {
+                $('#wasteemissions').val($(this).val());
+            });
+            // Update the slider when the text input value changes
+            $('#wasteemissions').on('input', function() {
+                $('#wasteemissionsSlider').val($(this).val());
+            });
+        });
+        </script>
+
 </html>
