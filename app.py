@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
 #,
+#,
 app = Flask(__name__)
 
 #환경 예측모델
@@ -221,4 +222,4 @@ def gov():
 
 #호스트 지정 + 웹 페이지 배포
 if __name__ == '__main__':
-    app.run(port = 80, debug=True, host='0.0.0.0')
+    app.run( port=80, port = 80, debug= True, host='0.0.0.0', host='0.0.0.0')
