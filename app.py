@@ -7,8 +7,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
-#,
-#,
 app = Flask(__name__)
 
 #환경 예측모델
@@ -22,8 +20,8 @@ def envi_process_data_and_predict(input_data, datafile, features, target):
     train = df[df.notnull()[target]].copy()
 
     # 등급 숫자로 변경 및 라벨링
-    label_mapping = {'D': 0,'C': 1, 'B': 2, 'B+': 3, 'A': 4, 'A+': 5}
-    train[target] = train[target].map(label_mapping)
+    le = LabelEncoder()
+    train[target] = le.fit_transform(train[target])
 
     X_train = train.drop([target], axis=1)
     y_train = train[target]
@@ -41,10 +39,12 @@ def envi_process_data_and_predict(input_data, datafile, features, target):
     # 모델 훈련
     gb_clf.fit(X_train_adasyn, y_train_adasyn)
 
-    # Predict the grade with the entered feature values
+    # 예측값 도출
     predicted_grade = gb_clf.predict(input_data)
+    predicted_grade_label = le.inverse_transform(predicted_grade)
 
-    return predicted_grade
+
+    return predicted_grade_label
 
 #사회 예측모델 
 def social_process_data_and_predict(input_data, datafile, features, target):
@@ -59,8 +59,8 @@ def social_process_data_and_predict(input_data, datafile, features, target):
     train = train[train[target] != 'D']
 
     # 등급 숫자로 변경 및 라벨링
-    label_mapping = {'C': 0, 'B': 1, 'B+': 2, 'A': 3, 'A+': 4}
-    train[target] = train[target].map(label_mapping)
+    le = LabelEncoder()
+    train[target] = le.fit_transform(train[target])
 
     X_train = train.drop([target], axis=1)
     y_train = train[target]
@@ -68,20 +68,27 @@ def social_process_data_and_predict(input_data, datafile, features, target):
     X_train = X_train[features]
 
     # ADASYN 객체
+    adasyn = ADASYN(random_state=42)
+    
     sampling_strategy = {0: 1700, 1: 1700, 2: 1200, 3: 1200, 4: 500}
     adasyn = ADASYN(sampling_strategy=sampling_strategy, random_state=42)
-    X_train_adasyn, y_train_adasyn = adasyn.fit_resample(X_train, y_train)
+    X, y = adasyn.fit_resample(X_train, y_train)
+    
+    # 모델 학습을 위해 train, test분리
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
     
     # Gradient Boosting Classifier 생성
-    gb_clf = GradientBoostingClassifier(random_state=42)
+    gb_clf = GradientBoostingClassifier(n_estimators=230, learning_rate=0.2, max_depth=6, min_samples_leaf=30, ccp_alpha=0.000051, random_state=42)
 
     # 모델 훈련
-    gb_clf.fit(X_train_adasyn, y_train_adasyn)
+    gb_clf.fit(X_train, y_train)
 
-    # Predict the grade with the entered feature values
+    # 예측값 도출
     predicted_grade = gb_clf.predict(input_data)
+    predicted_grade_label = le.inverse_transform(predicted_grade)
 
-    return predicted_grade
+
+    return predicted_grade_label
 
 #지배구조 예측 모델
 def gov_process_data_and_predict(input_data, datafile, features, target):
@@ -97,8 +104,8 @@ def gov_process_data_and_predict(input_data, datafile, features, target):
     train = train[train[target] != 'D']
 
     # 등급 숫자로 변경 및 라벨링
-    label_mapping = {'C': 0, 'B': 1, 'B+': 2, 'A': 3, 'A+': 4}
-    train[target] = train[target].map(label_mapping)
+    le = LabelEncoder()
+    train[target] = le.fit_transform(train[target])
 
     X_train = train.drop([target], axis=1)
     y_train = train[target]
@@ -121,11 +128,12 @@ def gov_process_data_and_predict(input_data, datafile, features, target):
     # 모델 훈련
     gb_clf.fit(X_train_adasyn, y_train_adasyn)
 
-    # Predict the grade with the entered feature values
+    # 예측값 도출
     predicted_grade = gb_clf.predict(input_data)
+    predicted_grade_label = le.inverse_transform(predicted_grade)
 
-    return predicted_grade
 
+    return predicted_grade_label
 
 #메인 홈페이지
 @app.route('/', methods=['GET'])
@@ -153,14 +161,9 @@ def envi():
         # Process the data and make predictions
         predicted_grade = envi_process_data_and_predict(input_data, datafile, features, target)
 
-        # Map the predicted grade to the corresponding social grade label
-        label_mapping_reverse = {0: 'D', 1: 'C', 2: 'B', 3: 'B+', 4: 'A', 5: 'A+'}
-        predicted_grade_label = label_mapping_reverse[predicted_grade[0]]
-
-        return render_template('envi.html', predicted_grade=predicted_grade_label)
+        return render_template('envi.html', predicted_grade=predicted_grade)
     
     return render_template('envi.html', predicted_grade='')
-
 #사회
 @app.route('/social', methods=['GET', 'POST'])
 def social():
@@ -183,11 +186,7 @@ def social():
         # Process the data and make predictions
         predicted_grade = social_process_data_and_predict(input_data, datafile, features, target)
 
-        # Map the predicted grade to the corresponding social grade label
-        label_mapping_reverse = {0: 'C', 1: 'B', 2: 'B+', 3: 'A', 4: 'A+'}
-        predicted_grade_label = label_mapping_reverse[predicted_grade[0]]
-
-        return render_template('social.html', predicted_grade=predicted_grade_label)
+        return render_template('social.html', predicted_grade=predicted_grade)
     
     return render_template('social.html', predicted_grade='')
 
@@ -212,11 +211,7 @@ def gov():
         # Process the data and make predictions
         predicted_grade = gov_process_data_and_predict(input_data, datafile, features, target)
 
-        # Map the predicted grade to the corresponding social grade label
-        label_mapping_reverse = {0: 'C', 1: 'B', 2: 'B+', 3: 'A', 4: 'A+'}
-        predicted_grade_label = label_mapping_reverse[predicted_grade[0]]
-
-        return render_template('gov.html', predicted_grade=predicted_grade_label)
+        return render_template('gov.html', predicted_grade=predicted_grade)
     
     return render_template('gov.html', predicted_grade='')
 
