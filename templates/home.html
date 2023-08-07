@@ -1,13 +1,91 @@
 <!doctype html>
 <html>
-    <head>
-        <title>E S G 예측 시스템 메인 홈페이지</title>
-    </head>
-    <body>
-        <h1>E S G 예측 시스템 메인 홈페이지</h1>
-        <p>원하는 분야를 클릭하세요</p>
-        <button onclick="window.location.href = '/envi';">Environment</button>
-        <button onclick="window.location.href = '/social';">Social</button>
-        <button onclick="window.location.href = '/gov';">Governance</button>
-    </body>
+<head>
+    <title>E S G 예측 시스템 메인 홈페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #202534;
+        }
+        
+        .chart-container {
+            display: flex;
+            justify-content: space-around; /* Adjusted to center-align charts */
+            padding: 20px;
+            height: 400px;
+        }
+        
+        .chart {
+            text-align: center;
+            color: #E1E1E1;
+            width: 30%; /* Adjusted to control chart width */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #E1E1E1;">E S G 예측 시스템 메인 홈페이지</h1>
+
+    <p style="text-align: center; color: #E1E1E1">원하는 분야를 클릭하세요</p>
+    <p style="text-align: center;">
+        <button style="display: inline-block;" button onclick="window.location.href = '/envi';">Environment</button>
+        <button style="display: inline-block;" button onclick="window.location.href = '/social';">Social</button>
+        <button style="display: inline-block;" button onclick="window.location.href = '/gov';">Governance</button>
+    </p>
+
+    <div class="chart-container">
+        <div class="chart">
+            <h2>환경</h2>
+            <canvas id="EnviChart"></canvas>
+        </div>
+        <div class="chart">
+            <h2>사회</h2>
+            <canvas id="SocialChart"></canvas>
+        </div>
+        <div class="chart">
+            <h2>지배구조</h2>
+            <canvas id="GovChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // 파이 차트 데이터 (동일한 데이터를 사용하도록 유지)
+        var chartData = {
+            labels: ['A', 'B', 'C', 'D', 'E'],
+            datasets: [{
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1,
+                data: [10, 20, 30, 25, 15]
+            }]
+        };
+
+        // 파이 차트 옵션
+        var chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        // 각 파이 차트 생성
+        var enviCtx = document.getElementById('EnviChart').getContext('2d');
+        new Chart(enviCtx, { type: 'pie', data: chartData, options: chartOptions });
+
+        var socialCtx = document.getElementById('SocialChart').getContext('2d');
+        new Chart(socialCtx, { type: 'pie', data: chartData, options: chartOptions });
+
+        var govCtx = document.getElementById('GovChart').getContext('2d');
+        new Chart(govCtx, { type: 'pie', data: chartData, options: chartOptions });
+    </script>
+</body>
 </html>
