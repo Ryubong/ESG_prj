@@ -138,9 +138,9 @@ def envi():
     if request.method == 'POST':
         # Get input feature values from the form
 
-        greenhouse_gas = float(request.form['greenhouse gas'])
-        energy_usage = float(request.form['energy usage'])
-        Hazardous_Chemical = float(request.form['Hazardous Chemical'])
+        greenhouse_gas = int(request.form['greenhouse gas'])
+        energy_usage = int(request.form['energy usage'])
+        Hazardous_Chemical = int(request.form['Hazardous Chemical'])
         water_usage = int(request.form['water usage'])
         waste_emissions = int(request.form['waste emissions'])
 
@@ -170,7 +170,7 @@ def social():
         new_recruitment = float(request.form['New Recruitment'])
         resignation_retirement = float(request.form['resignation_retirement'])
         female_workers = float(request.form['female_workers'])
-        training_hours = int(request.form['training_hours'])
+        training_hours = float(request.form['training_hours'])
         social_contribution = int(request.form['social_contribution'])
         industrial_accident = float(request.form['industrial_accident'])
 
