@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환경 입력 양식</title>
+</head>
+<body>
+    <form action="/predict" method="post">
+        온실가스: <input type="number" name="greenhousegas"><br><br>
+        에너지 사용량: <input type="number" name="energyusage"><br><br>
+        유해 화학물질: <input type="number" name="hazardouschemical"><br><br>
+        물 사용량: <input type="number" name="waterusage"><br><br>
+        폐기물 배출량: <input type="number" name="wasteemissions"><br><br>
+        <input type="submit" value="예측">
+    </form>
+</body>
+</html>
