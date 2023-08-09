@@ -11,6 +11,7 @@
     </style>
     <body>
         <h1 style="text-align: center; color: #E1E1E1;">Environment Grade Prediction</h1>
+        
         <form action="/envi" method="post">
             <p style="text-align: center; color: #E1E1E1">온실가스 배출량: <input type="range" min="0" max="1000" name="greenhouse gas Slider" id="greenhousegasSlider" oninput="updateTextInput(this.value);">
             <input type="text" name="greenhouse gas" id="greenhousegas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
@@ -29,10 +30,13 @@
             
             <p style="text-align: center; color: #E1E1E1">
             <input type="submit" value="예측하기">
-            </p>
-        </form>
-        <button onclick="window.location.href = '/envi_scenario';">시나리오 보기</button>
 
+
+            </p>
+
+        </form>
+
+        <p style="text-align: center; color: #E1E1E1"><button onclick="window.location.href = '/envi_scenario';" >시나리오 예측하기</button></p>
 
         <!-- 예측창 -->
         <h2 style="text-align: center; color: #E1E1E1">Predicted Grade: {{predicted_grade}}</h2>
@@ -90,5 +94,32 @@
             });
         });
         </script>
-
+    <script>
+            $(document).ready(function() {                 
+                $('form').on('submit', function(event) {
+                    var emptyFields = [];
+                    
+                    if ($('#greenhousegas').val() === '') {
+                        emptyFields.push('온실가스 배출량');
+                    }
+                    if ($('#energyusage').val() === '') {
+                        emptyFields.push('에너지 사용량');
+                    }
+                    if ($('#HazardousChemical').val() === '') {
+                        emptyFields.push('유해화학물질 배출량');
+                    }
+                    if ($('#waterusage').val() === '') {
+                        emptyFields.push('용수 사용량');
+                    }
+                    if ($('#wasteemissions').val() === '') {
+                        emptyFields.push('폐기물 배출량');
+                    }
+                    if (emptyFields.length > 0) {
+                        event.preventDefault(); // 폼 제출 방지
+                        var errorMsg = "다음 필드를 입력하세요: " + emptyFields.join(', ');
+                        alert(errorMsg);
+                    }
+                });
+            });
+        </script>
 </html>

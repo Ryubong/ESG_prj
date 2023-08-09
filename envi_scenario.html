@@ -54,53 +54,7 @@
         <p style="text-align: center; color: #E1E1E1">
         <input type="submit" value="시나리오 예측하기">
 
-        <h2 style="text-align: center; color: #E1E1E1"> {{report | safe}}</h2> </p>
-        </form>
 
-        <script>
-            $(document).ready(function() { 
-                $('form').on('submit', function(event) {
-                    var emptyFields = [];
-                    
-                    if ($('#greenhousegas').val() === '') {
-                        emptyFields.push('온실가스 배출량');
-                    }
-                    if ($('#energyusage').val() === '') {
-                        emptyFields.push('에너지 사용량');
-                    }
-                    if ($('#HazardousChemical').val() === '') {
-                        emptyFields.push('유해화학물질 배출량');
-                    }
-                    if ($('#waterusage').val() === '') {
-                        emptyFields.push('용수 사용량');
-                    }
-                    if ($('#wasteemissions').val() === '') {
-                        emptyFields.push('폐기물 배출량');
-                    }
-                    if ($('#scenariogreenhousegas').val() === '') {
-                        emptyFields.push('예측 온실가스 배출량');
-                    }
-                    if ($('#scenarioenergyusage').val() === '') {
-                        emptyFields.push('예측 에너지 사용량');
-                    }
-                    if ($('#scenarioHazardousChemical').val() === '') {
-                        emptyFields.push('예측 유해화학물질 배출량');
-                    }
-                    if ($('#scenariowaterusage').val() === '') {
-                        emptyFields.push('예측 용수 사용량');
-                    }
-                    if ($('#scenariowasteemissions').val() === '') {
-                        emptyFields.push('예측 폐기물 배출량');
-                    }
-                    if (emptyFields.length > 0) {
-                        event.preventDefault(); // 폼 제출 방지
-                        var errorMsg = "다음 필드를 입력하세요: " + emptyFields.join(', ');
-                        alert(errorMsg);
-                    }
-                });
-            });
-        </script>
-        <p style="text-align: center; color: #E1E1E1"><button onclick="window.location.href = '/envi';" >뒤로가기</button></p>
-
+    <p style="text-align: center; color: #E1E1E1;"><button onclick="window.location.href = '/';" >메인으로 돌아가기</button></p>
 </body>
 </html>
