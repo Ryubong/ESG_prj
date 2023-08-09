@@ -26,9 +26,13 @@
                     
             <p style="text-align: center; color: #E1E1E1">폐기물 배출량: <input type="range" min="0" max="1000" name="waste emissions Slider" id="wasteemissionsSlider" oninput="updateTextInput(this.value);">
             <input type="text" name="waste emissions" id="wasteemissions" value="{{request.form['waste emissions']}}"> T</p>
-              
-            <p style="text-align: center; color: #E1E1E1"><input type="submit" value="예측하기"></p>
+            
+            <p style="text-align: center; color: #E1E1E1">
+            <input type="submit" value="예측하기">
+            </p>
         </form>
+        <button onclick="window.location.href = '/envi_scenario';">시나리오 보기</button>
+
 
         <!-- 예측창 -->
         <h2 style="text-align: center; color: #E1E1E1">Predicted Grade: {{predicted_grade}}</h2>
