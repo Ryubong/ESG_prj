@@ -1,16 +1,18 @@
 <!doctype html>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 <html>
+
 <head>
     <title>E S G 예측 시스템 메인 홈페이지</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             background-image: url('../static/images/background.jpg');
             background-size: cover;
             background-repeat: no-repeat;
-            background-attachment: fixed;}
-        
+            background-attachment: fixed;
+        }
+
         .button {
             display: inline-block;
             padding: 15px 20px;
@@ -22,43 +24,74 @@
             cursor: pointer;
             height: 60px;
             margin: 40px;
+        }
 
-        }
-        .centered-first {
-            text-align: center;
-            margin-left: -1400px;
-            
-        }
-        .centered-second {
-            text-align: center;
-            margin-left: -400px;
-        }
-        .centered-third {
-            text-align: center;
-            margin-left: 500px;
-        }
-        .centered-fourth {
-            text-align: center;
-            margin-left: -1300px;
-        }
         .button-container {
             text-align: center;
-            margin: -30px auto; /* 버튼 위아래로 간격을 추가하고 컨테이너를 가운데로 정렬 */
-            
+            margin: -30px auto;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+    
+        .modal-content {
+            width: 300px;
+            height: 200px;
+            padding: 20px;
+            border: solid 1px #aaa;
+            background-color: #f9f9f9;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
+    <script>
+        function showDialog() {
+            var modal = document.getElementById("selectionModal");
+            modal.style.display = "block";
+        }
     
-    <div class="button-container">
-        
-        <div class="selection-container">
-        <button class="button" onclick="window.location.href = '/envi';">environment(예측으로 바뀔예정)</button>
-        <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02030000/ESG02030000.jsp';">기업경영 사이트 이동</button>
-        <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02040000/ESG02040000.jsp';">지배구조 사이트 이동</button>
-        <button class="button" onclick="window.location.href = '/envi_scenario';">시나리오</button>
-    </div>
+        function closeDialog() {
+            var modal = document.getElementById("selectionModal");
+            modal.style.display = "none";
+        }
+    
+        function redirectTo(path) {
+            window.location.href = path;
+            closeDialog();
+        }
+    </script>
 </head>
+
 <body>
-   
+    <div class="button-container">
+        <div class="selection-container">
+            <button class="button" onclick="showDialog()">예측하기</button>
+            <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02030000/ESG02030000.jsp';">기업경영 사이트 외부이동</button>
+            <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02040000/ESG02040000.jsp';">지배구조 사이트 외부이동</button>
+            <button class="button" onclick="window.location.href = '/envi_scenario';">시나리오</button>
+        </div>
+    </div>
+
+    <div id="selectionModal" class="modal">
+        <div class="modal-content">
+            <h3>항목을 선택하세요</h3>
+            <button onclick="redirectTo('/envi')">환경</button>
+            <button onclick="redirectTo('/social')">사회</button>
+            <button onclick="redirectTo('/gov')">지배구조</button>
+            <br><br>
+            <button onclick="closeDialog()">닫기</button>
+        </div>
+    </div>
 </body>
 
 </html>
