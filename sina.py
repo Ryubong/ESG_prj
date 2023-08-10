@@ -11,7 +11,7 @@ import io
 import base64
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 #환경 예측모델
 def envi_process_data_and_predict(input_data, datafile, features, target):

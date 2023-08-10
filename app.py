@@ -7,7 +7,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='C:\ESG_prj\static')
+
 
 #환경 예측모델
 def envi_process_data_and_predict(input_data, datafile, features, target):
