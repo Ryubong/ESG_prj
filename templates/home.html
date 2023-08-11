@@ -42,9 +42,9 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
-    
+        
         .modal-content {
-            width: 300px;
+            width: 400px;
             height: 200px;
             padding: 20px;
             border: solid 1px #aaa;
@@ -53,7 +53,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* 모달 내부의 아이템들을 수직 중앙에 배치합니다. */
         }
+        .modal-buttons {
+            display: flex;
+            justify-content: center; /* 버튼들을 가운데로 정렬 */
+            gap: 10px; /* 버튼 사이의 간격 */
+        }
+        
     </style>
     <script>
         function showDialog() {
@@ -71,13 +81,10 @@
             closeDialog();
         }
 
-        
-
         function openNewWindow(url) {
             window.open(url, '_blank');
         }
 
-        
     </script>
 </head>
 
@@ -91,16 +98,19 @@
         </div>
     </div>
 
-    <div id="selectionModal" class="modal">
-        <div class="modal-content">
-            <h3>항목을 선택하세요</h3>
-            <button onclick="redirectTo('/envi')">환경</button>
-            <button onclick="redirectTo('/social')">사회</button>
-            <button onclick="redirectTo('/gov')">지배구조</button>
+    <div class="modal" id="selectionModal" onclick="closeDialog()">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <h3>예측할 항목을 선택하세요</h3>
+            <div class="modal-buttons">
+                <button onclick="redirectTo('/envi')">환경</button>
+                <button onclick="redirectTo('/social')">사회</button>
+                <button onclick="redirectTo('/gov')">지배구조</button>
+            </div>
             <br><br>
             <button onclick="closeDialog()">닫기</button>
         </div>
     </div>
+    
 </body>
 
 </html>

@@ -94,9 +94,6 @@
         <div class="form-container">
         <h1 style="text-align: center; color: #000000;">Environment Grade Prediction</h1>
         <div class="spinner" id="loadingSpinner"></div>
-        
-        <h2 id="loadingText" style="text-align: center; color: #000000; display: none;">계산중...</h2>
-
         <form action="/envi" method="post">
             
             <p style="text-align: center; color: #000000">온실가스 배출량: <input type="range" min="0" max="1000" name="greenhouse gas Slider" id="greenhousegasSlider" oninput="updateTextInput(this.value);" class="slider">
@@ -119,9 +116,7 @@
             </div>
         </form>
         <!-- 예측창 -->
-
         <h2 id="predictedGradeText" style="text-align: center; color: #000000">Predicted Grade: {{predicted_grade}}</h2>
-        
         <div class="wrap" style="text-align: center;">
             <button onclick="window.location.href = '/';" class="button" style="color: #000000;">메인으로 돌아가기</button>
         </div>
@@ -177,6 +172,7 @@
         });
         </script>
 
+    <!-- 인풋 안될때 체크 -->
     <script>
         $(document).ready(function() {                 
             $('form').on('submit', function(event) {
