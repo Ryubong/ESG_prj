@@ -15,15 +15,16 @@
 
         .button {
             display: inline-block;
-            padding: 15px 20px;
-            font-size: 18px;
+            padding: 0.8vw 1.5vw;
+            font-size: 1.2vw;
             background-color: #45813f;
             color: white;
             border: none;
             border-radius: 15px;
             cursor: pointer;
-            height: 60px;
-            margin: 40px;
+            height: 4vw;
+            margin: 2vw;
+            width : 13vw;
         }
 
         .button-container {
@@ -69,6 +70,14 @@
             window.location.href = path;
             closeDialog();
         }
+
+        
+
+        function openNewWindow(url) {
+            window.open(url, '_blank');
+        }
+
+        
     </script>
 </head>
 
@@ -76,8 +85,8 @@
     <div class="button-container">
         <div class="selection-container">
             <button class="button" onclick="showDialog()">예측하기</button>
-            <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02030000/ESG02030000.jsp';">기업경영 사이트 외부이동</button>
-            <button class="button" onclick="window.location.href = 'https://esg.krx.co.kr/contents/02/02040000/ESG02040000.jsp';">지배구조 사이트 외부이동</button>
+            <button class="button" onclick="openNewWindow('https://esg.krx.co.kr/contents/02/02030000/ESG02030000.jsp');">기업경영 사이트</button>
+            <button class="button" onclick="openNewWindow('https://esg.krx.co.kr/contents/02/02040000/ESG02040000.jsp');">지배구조 사이트</button>
             <button class="button" onclick="window.location.href = '/envi_scenario';">시나리오</button>
         </div>
     </div>
