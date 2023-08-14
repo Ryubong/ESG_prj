@@ -6,60 +6,144 @@
     </head>
     <style>
         body {
-            background-color: #202534;
+            background-color: #F2F7F3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
+    .form-container {
+            text-align: center;
+            width: 80%;
+            max-width: 1000px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .slider {
+        -webkit-appearance: none; /* 기본 CSS 스타일을 적용하지 않기 위해서 */
+        width: 17%; /* 슬라이더 길이 */
+        height: 10px; /* 슬라이더 두께 */
+        border-radius: 5px; /* 슬라이더 모서리를 약간 둥글게 */
+        background: #efefef; /* 슬라이더 색상 */
+        outline: ; /* 슬라이더 테두리 없이 */
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none; /* 기본 CSS 스타일을 적용하지 않기 위해서 */
+        appearance: none; /* 기본 CSS 스타일을 적용하지 않기 위해서 */
+        width: 16px; /* 슬라이더 핸들 길이 */
+        height: 16px; /* 슬라이더 핸들 높이 */
+        border-radius: 100%; /* 핸들 모양을 원모양으로 만들기 위함 */
+        background: #195c1a; /* 슬라이더 핸들 색상 */
+        cursor: pointer; /* 슬라이더 핸들에 마우스를 갖다대면 포인터로 변경 */
+    }
+    .wrap {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .button {
+        width: 140px;
+        height: 45px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 45px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        }
+      
+      .button:hover {
+        background-color: #2EE59D;
+        box-shadow: 0px 0px 0px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+      }
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid #25f5a3;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+        display: none; /* 기본적으로 숨김 */
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
     </style>
     <body>
-        <h1 style="text-align: center; color: #E1E1E1;">Environment Scenario</h1>
-        <p style="text-align: center; color: #E1E1E1;"></p>
+
+        <div class="form-container">
+            <h1 style="text-align: center; color: #000000;">Environment Scenario</h1>
+            <div class="spinner" id="loadingSpinner"></div>
+        
     
 
         <form action="/envi_scenario" method="post">
         <div style="text-align: center;">
-        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             온실가스 배출량:
             <input type="text" name="greenhouse gas" id="greenhousegas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
-        <p style="display: inline-block; width: 45%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; color: #black;">
             예측 온실가스 배출량:
             <input type="text" name="scenario greenhouse gas" id="scenariogreenhousegas" value="{{request.form['scenario greenhouse gas']}}"> tCO2eq</p>
 
-        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             에너지 사용량:
             <input type="text" name="energy usage" id="energyusage" value="{{request.form['energy usage']}}"> TJ</p>
-        <p style="display: inline-block; width: 45%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; color: #black;">
             예측 에너지 사용량:
             <input type="text" name="scenario energy usage" id="scenarioenergyusage" value="{{request.form['scenario energy usage']}}"> TJ</p>
             
-        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             유해화학물질 배출량:
             <input type="text" name="Hazardous Chemical" id="HazardousChemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
-        <p style="display: inline-block; width: 45%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; color: #black;">
             예측 유해화학물질 배출량:
             <input type="text" name="scenario Hazardous Chemical" id="scenarioHazardousChemical" value="{{request.form['scenario Hazardous Chemical']}}"> T</p>
     
-        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             용수 사용량:
             <input type="text" name="water usage" id="waterusage" value="{{request.form['water usage']}}"> T</p>
-        <p style="display: inline-block; width: 45%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; color: #black;">
             예측 용수 사용량:
             <input type="text" name="scenario water usage" id="scenariowaterusage" value="{{request.form['scenario water usage']}}"> T</p>
 
-        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             폐기물 배출량:
             <input type="text" name="waste emissions" id="wasteemissions" value="{{request.form['waste emissions']}}"> T</p>
-        <p style="display: inline-block; width: 45%; color: #E1E1E1;">
+        <p style="display: inline-block; width: 45%; color: #black;">
             예측 폐기물 배출량:
             <input type="text" name="scenario waste emissions" id="scenariowasteemissions" value="{{request.form['scenario waste emissions']}}"> T</p>   
 
-        
-        <p style="text-align: center; color: #E1E1E1">
-        <input type="submit" value="시나리오 예측하기"></p>
+        <div class="wrap" style="text-align: center;">
+            <button class="button" type="submit" style="color: #000000;">PREDICT</button>
+        </div>
         </form>
         
-        <h2 style="text-align: center; color: #E1E1E1"> {{report | safe}}</h2> </p>
+        <h2 style="text-align: center; color: #black"> {{report | safe}}</h2> </p>
         <p style="text-align: center; color: #E1E1E1">
-            <button id="goBackButton">뒤로가기</button>
-        </p>
+            <div class="wrap" style="text-align: center;">
+                <button id="goBackButton" onclick="window.location.href = '/';" class="button" style="color: #000000;">메인으로 돌아가기</button>
+            </div>       
+         </p>
         
 
 </body>
@@ -99,10 +183,16 @@
                 if ($('#scenariowasteemissions').val() === '') {
                     emptyFields.push('예측 폐기물 배출량');
                 }
+                
                 if (emptyFields.length > 0) {
                     event.preventDefault(); // 폼 제출 방지
+                    $('#loadingSpinner').hide(); // 스피너 숨기기
                     var errorMsg = "다음 필드를 입력하세요: " + emptyFields.join(', ');
                     alert(errorMsg);
+                } else {
+                    // LOADING 스피너 보여주기
+                    $('#loadingSpinner').show();
+                    $('#predictedGradeText').hide();
                 }
             });
         });
@@ -114,5 +204,7 @@
                 return false; // 이벤트 전파 및 기본 동작 방지
             });
         });
+
+
     </script>
 </html>
