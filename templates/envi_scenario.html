@@ -12,6 +12,10 @@
             align-items: center;
             height: 100vh;
         }
+        
+    
+    
+
 
     .form-container {
             text-align: center;
@@ -21,6 +25,10 @@
             background-color: white;
             border-radius: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-top: 80px; /* 고정된 헤더의 높이만큼 여백 추가 */
+            height: 80vh; /* 예를 들면, 화면 높이의 80%만큼만 표시 */
+            overflow-y: auto; /* 세로로 스크롤 표시 */
         }
 
     .slider {
@@ -87,11 +95,53 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+    .tooltip {
+        position: absolute;
+        top: 40px; 
+        right: 50px; 
+        cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 220px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+    
+        position: absolute;
+        z-index: 1;
+        bottom: 10%; /* 툴팁 위치를 버튼 위로 변경 */
+        left: 50%;
+        margin-left: -110px;
+    
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* 오른쪽 상단에 버튼 위치 설정 */
+    .top-right {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
     </style>
     <body>
-
         <div class="form-container">
-            <h1 style="text-align: center; color: #000000;">Environment Scenario</h1>
+            <div style="display: flex; justify-content: center; align-items: center;">
+            <h1 style="text-align: center; color: #000000; margin-right: 10px;">Environment Scenario</h1>
+            <div class="tooltip">
+                <button class="button">사용법</button>
+                <span class="tooltiptext">왼쪽에는 현재의 수치를 넣고, 오른쪽엔 변화 시킬 사용량을 +/- 구분해서 입력하세요. </span>
+            </div>
+        </div>
             <div class="spinner" id="loadingSpinner"></div>
         
     
@@ -102,48 +152,55 @@
             온실가스 배출량:
             <input type="text" name="greenhouse gas" id="greenhousegas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
         <p style="display: inline-block; width: 45%; color: #black;">
-            예측 온실가스 배출량:
+            온실가스 배출량 변경:
             <input type="text" name="scenario greenhouse gas" id="scenariogreenhousegas" value="{{request.form['scenario greenhouse gas']}}"> tCO2eq</p>
 
         <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             에너지 사용량:
             <input type="text" name="energy usage" id="energyusage" value="{{request.form['energy usage']}}"> TJ</p>
         <p style="display: inline-block; width: 45%; color: #black;">
-            예측 에너지 사용량:
+            에너지 사용량 변경:
             <input type="text" name="scenario energy usage" id="scenarioenergyusage" value="{{request.form['scenario energy usage']}}"> TJ</p>
             
         <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             유해화학물질 배출량:
             <input type="text" name="Hazardous Chemical" id="HazardousChemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
         <p style="display: inline-block; width: 45%; color: #black;">
-            예측 유해화학물질 배출량:
+            유해화학물질 배출량 변경:
             <input type="text" name="scenario Hazardous Chemical" id="scenarioHazardousChemical" value="{{request.form['scenario Hazardous Chemical']}}"> T</p>
     
         <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             용수 사용량:
             <input type="text" name="water usage" id="waterusage" value="{{request.form['water usage']}}"> T</p>
         <p style="display: inline-block; width: 45%; color: #black;">
-            예측 용수 사용량:
+            용수 사용량 변경:
             <input type="text" name="scenario water usage" id="scenariowaterusage" value="{{request.form['scenario water usage']}}"> T</p>
 
         <p style="display: inline-block; width: 45%; margin-right: 5%; color: #black;">
             폐기물 배출량:
             <input type="text" name="waste emissions" id="wasteemissions" value="{{request.form['waste emissions']}}"> T</p>
         <p style="display: inline-block; width: 45%; color: #black;">
-            예측 폐기물 배출량:
+            폐기물 배출량 변경:
             <input type="text" name="scenario waste emissions" id="scenariowasteemissions" value="{{request.form['scenario waste emissions']}}"> T</p>   
 
+        
         <div class="wrap" style="text-align: center;">
             <button class="button" type="submit" style="color: #000000;">PREDICT</button>
         </div>
         </form>
+
+        
+
         
         <h2 style="text-align: center; color: #black"> {{report | safe}}</h2> </p>
         <p style="text-align: center; color: #E1E1E1">
+            <img src="{{ url_for('static', filename='graph.png') }}" alt="Environmental Grade Probabilities" style="display: none;" id="graphImage">
             <div class="wrap" style="text-align: center;">
                 <button id="goBackButton" onclick="window.location.href = '/';" class="button" style="color: #000000;">메인으로 돌아가기</button>
+                
             </div>       
          </p>
+
         
 
 </body>
@@ -204,6 +261,16 @@
                 return false; // 이벤트 전파 및 기본 동작 방지
             });
         });
+
+        $(document).ready(function() {
+            
+            if ('{{report}}'.length > 0) {  // report 값이 있는지 확인
+                $('#graphImage').show();  // 이미지 표시
+            } else {
+                $('#graphImage').hide();  // 이미지 숨기기
+            }
+        });
+        
 
 
     </script>

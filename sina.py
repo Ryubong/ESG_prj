@@ -123,6 +123,7 @@ def create_report(model, encoder, features, data, scenario):
     fig.tight_layout()
 
         # Convert the plot to a string encoded as base64
+    plt.savefig('./static/graph.png')
 
 
     img = io.BytesIO()
