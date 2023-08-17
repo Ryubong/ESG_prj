@@ -14,6 +14,7 @@ import io
 import base64
 
 
+
 app = Flask(__name__, static_url_path='/static')
 
 #환경 예측모델
