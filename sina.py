@@ -7,6 +7,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 import matplotlib.pyplot as plt
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
 import io
 import base64
 
@@ -38,20 +41,36 @@ def envi_process_data_and_predict(input_data, datafile, features, target):
     X, y = adasyn.fit_resample(X_train, y_train)
 
     #모델 학습을 위해 train, test 분리
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    # Gradient Boosting Classifier 생성
-    gb_clf = GradientBoostingClassifier(n_estimators=230, learning_rate=0.15, max_depth=4, min_samples_leaf=40, ccp_alpha=0.00000015, random_state=42)
+    rf_classifier = RandomForestClassifier()
 
-    # 모델 훈련
-    gb_clf.fit(X_train, y_train)
+    param_dist = {
+    'n_estimators': np.arange(50, 200, 10),
+    'max_depth': [None] + list(np.arange(5, 30, 5)),
+    'min_samples_split': np.arange(2, 11),
+    'min_samples_leaf': np.arange(1, 11),
+    'bootstrap': [True, False],
+    'criterion': ['gini', 'entropy']
+    }
+    # 랜덤 서치 객체 생성
+    random_search = RandomizedSearchCV(
+    rf_classifier,
+    param_distributions=param_dist,
+    n_iter=100,  # 총 시도할 조합 횟수
+    scoring='accuracy',  # 평가 지표
+    cv=5,  # 교차 검증 폴드 수
+    verbose=1,
+    n_jobs=-1  # 모든 가용 CPU 코어 사용
+    )
 
-    # 예측값 도출
-    predicted_grade = gb_clf.predict(input_data)
+    # 랜덤 서치 수행
+    random_search.fit(X_train, y_train)
+
+    predicted_grade = random_search.predict(input_data)
     predicted_grade_label = le.inverse_transform(predicted_grade)
 
-
-    return predicted_grade_label, gb_clf, le
+    return predicted_grade_label, random_search , le
 
 def scenario_analysis(model, encoder, data, scenario, features):
     # 새로운 시나리오에 따라 데이터를 조정

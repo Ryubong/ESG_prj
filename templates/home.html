@@ -67,6 +67,30 @@
             justify-content: center; /* 버튼들을 가운데로 정렬 */
             gap: 10px; /* 버튼 사이의 간격 */
         }
+        .left-sidebar {
+            position: fixed;
+            top: 20%;
+            left: 0.3%;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+    
+        .left-sidebar .button {
+            display: inline-block;
+            width: 10vw; /* 버튼의 넓이 조절 */
+            height: 2.5vw; /* 버튼의 높이 조절 */
+            margin: 0;
+            padding: 0.8vw 1.5vw;
+            font-size: 1.0vw;
+            background-color: #F2F7F3;
+            color: black;
+            border: none;
+            border-radius: 10px;
+        }
+        
+
+        
         
     </style>
     <script>
@@ -93,6 +117,12 @@
 </head>
 
 <body>
+    <div class="left-sidebar">
+        <button class="button" onclick="window.location.href = '/dog';">ESG 설명</button>
+        <button class="button" onclick="window.location.href = '/cat';">ESG 중요성</button>
+        <button class="button" onclick="window.location.href = '/fish';">About 예측모델</button>
+    </div>
+
     <div class="button-container">
         <div class="selection-container">
             <button class="button" onclick="showDialog()">예측하기</button>
