@@ -6,16 +6,17 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import io
 import base64
-
+import pickle
 
 
 app = Flask(__name__, static_url_path='/static')
+
 
 #환경 예측모델
 def envi_process_data_and_predict(input_data, datafile, features, target):
@@ -68,6 +69,7 @@ def envi_process_data_and_predict(input_data, datafile, features, target):
     # 랜덤 서치 수행
     random_search.fit(X_train, y_train)
 
+        
     predicted_grade = random_search.predict(input_data)
     predicted_grade_label = le.inverse_transform(predicted_grade)
 
