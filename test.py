@@ -18,22 +18,16 @@ import os
 app = Flask(__name__, static_url_path='/static')
 
 
-#환경 예측모델
 
 def save_model(model, model_name):
-    """
-    모델을 주어진 이름으로 저장합니다.
-    """
     with open(model_name, 'wb') as f:
         pickle.dump(model, f)
 
 def load_model(model_name):
-    """
-    주어진 이름으로 저장된 모델을 불러옵니다.
-    """
     with open(model_name, 'rb') as f:
         return pickle.load(f)
 
+#환경 예측모델
 def envi_process_data_and_predict(input_data, datafile, features, target):
     
      # Check if the model file exists
