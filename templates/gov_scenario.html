@@ -205,42 +205,46 @@
 
 </body>
 
-<script>
-        $(document).ready(function() { 
+        
+    <!-- 인풋 안될때 체크 -->
+    <script>
+        $(document).ready(function() {                 
             $('form').on('submit', function(event) {
                 var emptyFields = [];
                 
-                if ($('#greenhousegas').val() === '') {
+                // 필드 값 확인
+                if ($('#attendancerate').val() === '') {
                     emptyFields.push('이사 출석률');
                 }
-                if ($('#energyusage').val() === '') {
-                    emptyFields.push('에너지 사용량');
+                if ($('#boardofdirectors').val() === '') {
+                    emptyFields.push('이사회 현황 횟수');
                 }
-                if ($('#HazardousChemical').val() === '') {
-                    emptyFields.push('유해화학물질 배출량');
+                if ($('#numberofboardmembers').val() === '') {
+                    emptyFields.push('이사 명수');
                 }
-                if ($('#waterusage').val() === '') {
-                    emptyFields.push('용수 사용량');
+                if ($('#auditcommittee').val() === '') {
+                    emptyFields.push('감사위원회 운영 횟수');
                 }
-                if ($('#wasteemissions').val() === '') {
-                    emptyFields.push('폐기물 배출량');
+                if ($('#idstock').val() === '') {
+                    emptyFields.push('발행 주식수 / 발행 가능 주식수');
                 }
-                if ($('#scenariogreenhousegas').val() === '') {
-                    emptyFields.push('예측 온실가스 배출량');
+
+                if ($('scenario#attendancerate').val() === '') {
+                    emptyFields.push('이사 출석률 변경');
                 }
-                if ($('#scenarioenergyusage').val() === '') {
-                    emptyFields.push('예측 에너지 사용량');
+                if ($('#scenarioboardofdirectors').val() === '') {
+                    emptyFields.push('이사회 현황 횟수 변경');
                 }
-                if ($('#scenarioHazardousChemical').val() === '') {
-                    emptyFields.push('예측 유해화학물질 배출량');
+                if ($('#scenarionumberofboardmembers').val() === '') {
+                    emptyFields.push('이사 명수 변경');
                 }
-                if ($('#scenariowaterusage').val() === '') {
-                    emptyFields.push('예측 용수 사용량');
+                if ($('#scenarioauditcommittee').val() === '') {
+                    emptyFields.push('감사위원회 운영 횟수 변경');
                 }
-                if ($('#scenariowasteemissions').val() === '') {
-                    emptyFields.push('예측 폐기물 배출량');
+                if ($('#scenarioidstock').val() === '') {
+                    emptyFields.push('발행 주식수 / 발행 가능 주식수 변경');
                 }
-                
+        
                 if (emptyFields.length > 0) {
                     event.preventDefault(); // 폼 제출 방지
                     $('#loadingSpinner').hide(); // 스피너 숨기기
@@ -253,6 +257,8 @@
                 }
             });
         });
+            
+        </script>
     </script>
     <script>
         $(document).ready(function() {
