@@ -510,11 +510,11 @@ def gov_scenario():
         datafile = './gov data.csv'
         target = "지배구조"
 
-        scenario_attendance_rate = int(request.form['scenario attendance rate'])
+        scenario_attendance_rate = float(request.form['scenario attendance rate'])
         scenario_board_of_directors = int(request.form['scenario board of directors'])
         scenario_number_of_board_members = int(request.form['scenario number of board members'])
         scenario_audit_committee = int(request.form['scenario audit committee'])
-        scenario_stock = int(request.form['scenario stock'])
+        scenario_stock = float(request.form['scenario stock'])
         
         scenario = {
             "이사 출석률": scenario_attendance_rate,
@@ -525,8 +525,8 @@ def gov_scenario():
             
         }
 
-        # Process the data and make predictions
-        predicted_grade, gb_clf, le = envi_process_data_and_predict(input_data, datafile, features, target)
+        # Process the data and make predictions.
+        predicted_grade, gb_clf, le = gov_process_data_and_predict(input_data, datafile, features, target)
         report, plot_url = create_report(gb_clf, le, features, input_data, scenario)
 
         return render_template('gov_scenario.html', predicted_grade=predicted_grade[0], report=report, plot_url=plot_url)
