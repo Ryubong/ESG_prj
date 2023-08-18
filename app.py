@@ -175,9 +175,9 @@ def social_process_data_and_predict(input_data, datafile, features, target):
 def gov_process_data_and_predict(input_data, datafile, features, target):
     
      # PKL 파일 확인
-    if os.path.exists("random_search_model.pkl") and os.path.exists("label_encoder.pkl"):
-        random_search = load_model("random_search_model.pkl")
-        le = load_model("label_encoder.pkl")
+    if os.path.exists("gov_model.pkl") and os.path.exists("gov_encoder.pkl"):
+        random_search = load_model("gov_model.pkl")
+        le = load_model("gov_encoder.pkl")
     else:
         random_search.fit(X_train, y_train)
             
