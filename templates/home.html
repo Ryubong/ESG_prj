@@ -28,7 +28,7 @@
         }
         
         .button:hover {
-            background-color: #30692b; /* 여기서는 원래의 색보다 약간 더 짙은 색을 선택했습니다. */
+            background-color: #174C00; /* 여기서는 원래의 색보다 약간 더 짙은 색을 선택했습니다. */
         }
 
         .button-container {
@@ -103,7 +103,24 @@
             var modal = document.getElementById("selectionModal");
             modal.style.display = "none";
         }
-    
+        
+        function showScenarioDialog() {
+            var modal = document.getElementById("scenarioSelectionModal");
+            modal.style.display = "block";
+        }
+        
+        function closeScenarioDialog() {
+            var modal = document.getElementById("scenarioSelectionModal");
+            modal.style.display = "none";
+        }
+        
+        function redirectToScenario(path) {
+            window.location.href = path;
+            closeScenarioDialog();
+        }
+
+
+
         function redirectTo(path) {
             window.location.href = path;
             closeDialog();
@@ -113,25 +130,22 @@
             window.open(url, '_blank');
         }
 
+        
+
     </script>
 </head>
 
 <body>
-    <div class="left-sidebar">
-        <button class="button" onclick="window.location.href = '/dog';">ESG 설명</button>
-        <button class="button" onclick="window.location.href = '/cat';">ESG 중요성</button>
-        <button class="button" onclick="window.location.href = '/fish';">About 예측모델</button>
-    </div>
-
     <div class="button-container">
         <div class="selection-container">
             <button class="button" onclick="showDialog()">예측하기</button>
             <button class="button" onclick="openNewWindow('https://esg.krx.co.kr/contents/02/02030000/ESG02030000.jsp');">기업경영 사이트</button>
             <button class="button" onclick="openNewWindow('https://esg.krx.co.kr/contents/02/02040000/ESG02040000.jsp');">지배구조 사이트</button>
-            <button class="button" onclick="window.location.href = '/envi_scenario';">시나리오</button>
+            <button class="button" onclick="showScenarioDialog()">시나리오</button>
         </div>
     </div>
 
+    
     <div class="modal" id="selectionModal" onclick="closeDialog()">
         <div class="modal-content" onclick="event.stopPropagation();">
             <h3>예측할 항목을 선택하세요</h3>
@@ -144,7 +158,19 @@
             <button onclick="closeDialog()">닫기</button>
         </div>
     </div>
-    
+
+    <div class="modal" id="scenarioSelectionModal" onclick="closeScenarioDialog()">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <h3>시나리오 항목을 선택하세요</h3>
+            <div class="modal-buttons">
+                <button onclick="redirectToScenario('/envi_scenario')">환경</button>
+                <button onclick="redirectToScenario('/social_scenario')">사회</button>
+                <button onclick="redirectToScenario('/gov_scenario')">지배구조</button>
+            </div>
+            <br><br>
+            <button onclick="closeScenarioDialog()">닫기</button>
+        </div>
+    </div>
 </body>
 
 </html>
