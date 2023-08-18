@@ -103,16 +103,16 @@
             <input type="text" name="resignation retirement" id="resignationretirement" value="{{request.form['resignation_retirement']}}"> TJ</p>
             
             <p style="text-align: center; color: #000000">여성 근로자: <input type="range" min="0" max="1000" name="female workers Slider" id="femaleworkersSlider" oninput="updateTextInput(this.value);" class="slider">
-            <input type="text" name="female workers" id="femaleworkers" value="{{request.form['female_workers]}}"> T</p>
+                <input type="text" name="female workers" id="femaleworkers" value="{{request.form['female workers']}}"> TJ</p>
             
             <p style="text-align: center; color: #000000">총 교육 시간: <input type="range" min="0" max="1000" name="training hours Slider" id="traininghoursSlider" oninput="updateTextInput(this.value);" class="slider">
-                <input type="text" name="training hours" id="traininghours" value="{{ training_hours }}"> T</p>
+                <input type="text" name="training hours" id="traininghours" value="{{request.form['training hours']}}"> TJ</p>
                     
             <p style="text-align: center; color: #000000">사회 공헌 및 투자 금액: <input type="range" min="0" max="1000" name="social contribution Slider" id="socialcontributionSlider" oninput="updateTextInput(this.value);" class="slider">
-            <input type="text" name="social contribution" id="socialcontribution" value="{{request.form['social_contribution']}}"> T</p>
+                <input type="text" name="social contribution" id="socialcontribution" value="{{request.form['social contribution']}}"> T</p>
             
             <p style="text-align: center; color: #000000">산업재해: <input type="range" min="0" max="1000" name="industrial accident Slider" id="industrialaccidentSlider" oninput="updateTextInput(this.value);" class="slider">
-                <input type="text" name="industrial accident" id="industrialaccident" value="{{request.form['industrial_accident']}}"> T</p>
+                <input type="text" name="industrial accident" id="industrialaccident" value="{{request.form['industrial accident']}}"> T</p>
                 
             <div class="wrap" style="text-align: center;">
                 <button class="button" type="submit" style="color: #000000;">PREDICT</button>
