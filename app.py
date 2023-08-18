@@ -428,12 +428,12 @@ def social_scenario():
     if request.method == 'POST':
         # Get input feature values from the form
 
-        new_recruitment = int(request.form['New Recruitment'])
-        resignation_retirement = int(request.form['resignation retirement'])
-        female_workers = int(request.form['female workers'])
-        training_hours = int(request.form['training hours'])
+        new_recruitment = float(request.form['New Recruitment'])
+        resignation_retirement = float(request.form['resignation retirement'])
+        female_workers = float(request.form['female workers'])
+        training_hours = float(request.form['training hours'])
         social_contribution = int(request.form['social contribution'])
-        industrial_accident = int(request.form['industrial accident'])
+        industrial_accident = float(request.form['industrial accident'])
 
         # Create a 2D array of the input feature values
         input_data = [[new_recruitment, resignation_retirement, female_workers, training_hours, social_contribution, industrial_accident]]
@@ -441,12 +441,12 @@ def social_scenario():
         datafile = './social data.csv'
         target = "사회"
 
-        scenario_new_recruitment = int(request.form['scenario New Recruitment'])
-        scenario_resignation_retirement = int(request.form['scenario resignation retirement'])
-        scenario_female_workers = int(request.form['scenario female workers'])
-        scenario_training_hours = int(request.form['scenario training hours'])
+        scenario_new_recruitment = float(request.form['scenario New Recruitment'])
+        scenario_resignation_retirement = float(request.form['scenario resignation retirement'])
+        scenario_female_workers = float(request.form['scenario female workers'])
+        scenario_training_hours = float(request.form['scenario training hours'])
         scenario_social_contribution = int(request.form['scenario social contribution'])
-        scenario_industrial_accident = int(request.form['scenario industrial accident'])
+        scenario_industrial_accident = float(request.form['scenario industrial accident'])
         
         scenario = {
             "신규채용": scenario_new_recruitment,
