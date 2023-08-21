@@ -3,15 +3,21 @@
 
 <head>
     <title>E S G 예측 시스템 메인 홈페이지</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+        
+    </script>
     <style>
         body {
-            background-image: url('../static/images/background.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        background-image: url('../static/images/background_0.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        transition: background-image 0.5s ease-in-out; /* smooth transition */
+        margin-bottom: 450vh; /* Adds a large margin to ensure scrolling */
+
         }
         .button {
             display: inline-block;
@@ -94,6 +100,20 @@
         
     </style>
     <script>
+    window.addEventListener("scroll", function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop <= window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background_0.jpg')";
+    } else if (scrollTop > window.innerHeight && scrollTop <= 2 * window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background1.jpg')";
+    } else if (scrollTop > 2 * window.innerHeight && scrollTop <= 3 * window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background2.jpg')";
+    } else {
+        document.body.style.backgroundImage = "url('../static/images/background3.jpg')";
+    }
+});
+
         function showDialog() {
             var modal = document.getElementById("selectionModal");
             modal.style.display = "block";
