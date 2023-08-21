@@ -11,15 +11,10 @@
     </script>
     <style>
         body {
-            background-image: url('../static/images/background_0.jpg');
-            background-size: contain;
+            background-image: url('../static/images/background.jpg');
+            background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: center; 
-            transition: background-image 0.5s ease-in-out;
-            height: 100vh; /* ensure full height of viewport */
-            margin: 0; /* remove default margin */
-            margin-bottom: 450vh; /* Adds a large margin to ensure scrolling */
         }
         
         .button {
@@ -125,22 +120,6 @@
         
     </style>
     <script>
-
-        window.addEventListener("scroll", function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-            if (scrollTop <= window.innerHeight) {
-                document.body.style.backgroundImage = "url('../static/images/background_0.jpg')";
-            } else if (scrollTop > window.innerHeight && scrollTop <= 2 * window.innerHeight) {
-                document.body.style.backgroundImage = "url('../static/images/background1.jpg')";
-            } else if (scrollTop > 2 * window.innerHeight && scrollTop <= 3 * window.innerHeight) {
-                document.body.style.backgroundImage = "url('../static/images/background2.jpg')";
-            } else {
-                document.body.style.backgroundImage = "url('../static/images/background3.jpg')";
-            }
-        });
-
-
         function showDialog() {
             var modal = document.getElementById("selectionModal");
             modal.style.display = "block";
