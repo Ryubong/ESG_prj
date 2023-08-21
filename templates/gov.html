@@ -98,22 +98,22 @@
             <form action="/gov" method="post">
 
 
-            <p style="text-align: center; color: #000000">이사 출석률: <input type="range" min="0" max="1000" name="attendance rate Slider" id="attendancerateSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">이사 출석률: <input type="range" min="75" max="100" name="attendance rate Slider" id="attendancerateSlider" oninput="updateTextInput(this.value);" class="slider">
                 <input type="text" name="attendance rate" id="attendancerate" value="{{request.form['attendance rate']}}"> %</p>
 
-            <p style="text-align: center; color: #000000">이사회 현황 횟수: <input type="range" min="0" max="1000" name="board of directors Slider" id="boardofdirectorsSlider" oninput="updateTextInput(this.value);"class="slider">
+            <p style="text-align: center; color: #000000">이사회 현황 횟수: <input type="range" min="3" max="50" name="board of directors Slider" id="boardofdirectorsSlider" oninput="updateTextInput(this.value);"class="slider">
                 <input type="text" name="board of directors" id="boardofdirectors" value="{{request.form['board of directors']}}"> 건</p>
 
 
-            <p style="text-align: center; color: #000000">이사 명수: <input type="range" min="0" max="1000" name="number of board members Slider" id="numberofboardmembersSlider" oninput="updateTextInput(this.value);"class="slider">
+            <p style="text-align: center; color: #000000">이사 명수: <input type="range" min="0" max="30" name="number of board members Slider" id="numberofboardmembersSlider" oninput="updateTextInput(this.value);"class="slider">
                 <input type="text" name="number of board members" id="numberofboardmembers" value="{{request.form['number of board members']}}"> 명</p>
 
 
-            <p style="text-align: center; color: #000000">감사위원회 운영 횟수: <input type="range" min="0" max="1000" name="audit committee Slider" id="auditcommitteeSlider" oninput="updateTextInput(this.value);"class="slider">
+            <p style="text-align: center; color: #000000">감사위원회 운영 횟수: <input type="range" min="0" max="30"  name="audit committee Slider" id="auditcommitteeSlider" oninput="updateTextInput(this.value);"class="slider">
                 <input type="text" name="audit committee" id="auditcommittee" value="{{request.form['audit committee']}}"> 번</p>
 
 
-            <p style="text-align: center; color: #000000">발행 주식수 / 발행 가능 주식수: <input type="range" min="0" max="1000" name="stock Slider" id="idstockSlider" oninput="updateTextInput(this.value);"class="slider">
+            <p style="text-align: center; color: #000000">발행 주식수 / 발행 가능 주식수: <input type="range" min="1.0" max="150" name="stock Slider" id="idstockSlider" oninput="updateTextInput(this.value);"class="slider">
                 <input type="text" name="stock" id="idstock" value="{{request.form['stock']}}"> %</p>
 
                 <div class="wrap" style="text-align: center;">
