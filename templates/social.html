@@ -96,22 +96,22 @@
         <div class="spinner" id="loadingSpinner"></div>
         <form action="/social" method="post">
             
-            <p style="text-align: center; color: #000000">신규채용: <input type="range" min="0" max="1000" name="New Recruitment Slider" id="NewRecruitmentSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">신규채용:     <input type="range" min="0" max="30" name="audit committee Slider" id="auditcommitteeSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="New Recruitment" id="newRecruitment" value="{{request.form['New Recruitment']}}"> 명</p>
             
-            <p style="text-align: center; color: #000000">이직 및 퇴직: <input type="range" min="0" max="1000" name="resignation retirement Slider" id="resignationretirementSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">이직 및 퇴직: <input type="range" min="0" max="1.05" name="resignation retirement Slider" id="resignationretirementSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="resignation retirement" id="resignationretirement" value="{{request.form['resignation retirement']}}"> 명</p>
             
-            <p style="text-align: center; color: #000000">여성 근로자: <input type="range" min="0" max="1000" name="female workers Slider" id="femaleworkersSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">여성 근로자: <input type="range" min="0" max="1" name="female workers Slider" id="femaleworkersSlider" oninput="updateTextInput(this.value);" class="slider">
                 <input type="text" name="female workers" id="femaleworkers" value="{{request.form['female workers']}}"> 명</p>
             
-            <p style="text-align: center; color: #000000">총 교육 시간: <input type="range" min="0" max="1000" name="training hours Slider" id="traininghoursSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">총 교육 시간: <input type="range" min="0" max="250" name="training hours Slider" id="traininghoursSlider" oninput="updateTextInput(this.value);" class="slider">
                 <input type="text" name="training hours" id="traininghours" value="{{request.form['training hours']}}"> 시간</p>
                     
-            <p style="text-align: center; color: #000000">사회 공헌 및 투자 금액: <input type="range" min="0" max="1000" name="social contribution Slider" id="socialcontributionSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">사회 공헌 및 투자 금액: <input type="range" min="0" max="180000000" name="social contribution Slider" id="socialcontributionSlider" oninput="updateTextInput(this.value);" class="slider">
                 <input type="text" name="social contribution" id="socialcontribution" value="{{request.form['social contribution']}}"> 원</p>
             
-            <p style="text-align: center; color: #000000">산업재해: <input type="range" min="0" max="1000" name="industrial accident Slider" id="industrialaccidentSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">산업재해: <input type="range" min="0" max="0.3" name="industrial accident Slider" id="industrialaccidentSlider" oninput="updateTextInput(this.value);" class="slider">
                 <input type="text" name="industrial accident" id="industrialaccident" value="{{request.form['industrial accident']}}"> 건</p>
                 
             <div class="wrap" style="text-align: center;">
