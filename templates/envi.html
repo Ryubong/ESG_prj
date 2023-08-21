@@ -96,19 +96,19 @@
         <div class="spinner" id="loadingSpinner"></div>
         <form action="/envi" method="post">
             
-            <p style="text-align: center; color: #000000">온실가스 배출량: <input type="range" min="0" max="1000" name="greenhouse gas Slider" id="greenhousegasSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">온실가스 배출량: <input type="range" min="15" max="550000000" name="greenhouse gas Slider" id="greenhousegasSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="greenhouse gas" id="greenhousegas" value="{{request.form['greenhouse gas']}}"> tCO2eq</p>
             
-            <p style="text-align: center; color: #000000">에너지 사용량: <input type="range" min="0" max="1000" name="energy usage Slider" id="energyusageSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">에너지 사용량: <input type="range" min="1" max="70000000" name="energy usage Slider" id="energyusageSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="energy usage" id="energyusage" value="{{request.form['energy usage']}}"> TJ</p>
             
-            <p style="text-align: center; color: #000000">유해화학물질 배출량: <input type="range" min="0" max="1000" name="Hazardous Chemical Slider" id="HazardousChemicalSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">유해화학물질 배출량: <input type="range" min="0" max="26000000" name="Hazardous Chemical Slider" id="HazardousChemicalSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="Hazardous Chemical" id="HazardousChemical" value="{{request.form['Hazardous Chemical']}}"> T</p>
             
-            <p style="text-align: center; color: #000000">용수 사용량: <input type="range" min="0" max="1000" name="water usage Slider" id="waterusageSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">용수 사용량: <input type="range" min="0" max="480000000" name="water usage Slider" id="waterusageSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="water usage" id="waterusage" value="{{request.form['water usage']}}"> T</p>
                     
-            <p style="text-align: center; color: #000000">폐기물 배출량: <input type="range" min="0" max="1000" name="waste emissions Slider" id="wasteemissionsSlider" oninput="updateTextInput(this.value);" class="slider">
+            <p style="text-align: center; color: #000000">폐기물 배출량: <input type="range" min="0" max="1500000" name="waste emissions Slider" id="wasteemissionsSlider" oninput="updateTextInput(this.value);" class="slider">
             <input type="text" name="waste emissions" id="wasteemissions" value="{{request.form['waste emissions']}}"> T</p>
             
             <div class="wrap" style="text-align: center;">
