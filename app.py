@@ -2,13 +2,14 @@ import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from imblearn.over_sampling import ADASYN
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 import matplotlib.pyplot as plt
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.ensemble import RandomForestClassifier
+from matplotlib import font_manager
+from matplotlib.font_manager import FontProperties
+import matplotlib
 import numpy as np
 import io
 import base64
@@ -273,14 +274,18 @@ def create_report(model, encoder, features, data, scenario):
 
     # 보고서 작성
     report = f"""
-    Original Environmental Grade: {original_grade_label[0]} 
+    Current Environmental Grade : <span style='color:green'>{original_grade_label[0]}</span>
     
-    Predicted Environmental Grade under scenario: {modified_grade_label} \n
+    Expected Environmental Grade : <span style='color:green'>{modified_grade_label}</span>
 
-    Scenario:
+    시나리오:
     """
+    
     for feature, change in scenario.items():
-        report += f"{feature}: {'increased' if change > 0 else 'decreased'} by {abs(change)} \n "
+        arrow = '▲' if change > 0 else '▼'
+        arrow_color = 'blue' if change > 0 else 'red'
+        number_color = 'blue' if change > 0 else 'red'
+        report += f"{feature}: <span style='color:{arrow_color}'>{arrow}</span> <span style='color:{number_color}'>{abs(change)}</span> <br>"
     report = report.replace('\n', '<br>')
 
     # 각 등급의 예측 확률을 시각화
@@ -298,23 +303,26 @@ def create_report(model, encoder, features, data, scenario):
 
     labels = encoder.classes_
 
+    font_path = 'C:/Users/fbgus/AppData/Local/Microsoft/Windows/Fonts/NanumGothic.ttf'
+    font_prop = FontProperties(fname=font_path)
+    matplotlib.rcParams['font.family'] = 'Malgun Gothic'  # 또는 'AppleGothic' 등 다른 한글 글꼴로 변경
+    matplotlib.rcParams['font.size'] = 11
+             
     x = np.arange(len(labels))
-
     fig, ax = plt.subplots()
-
     bar_width = 0.35
 
-    original_rects = ax.bar(x - bar_width/2, original_probs[0], bar_width, label='Original')
-    modified_rects = ax.bar(x + bar_width/2, modified_probs[0], bar_width, label='Modified')
+    original_rects = ax.bar(x - bar_width/2, original_probs[0], bar_width, label='Before')
+    modified_rects = ax.bar(x + bar_width/2, modified_probs[0], bar_width, label='After')
 
-    ax.set_ylabel('Probabilities')
-    ax.set_title('Probabilities by environmental grade and scenario')
+    
+    ax.set_ylabel('예측 확률', fontproperties=FontProperties(fname=font_path))
+    ax.set_title('시나리오 예측 등급별 확률', fontproperties=FontProperties(fname=font_path))
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.legend()
 
     fig.tight_layout()
-
     plt.savefig('./static/graph.png')
 
     img = io.BytesIO()
@@ -333,7 +341,6 @@ def home():
 @app.route('/envi', methods=['GET', 'POST'])
 def envi():
     if request.method == 'POST':
-        # Get input feature values from the form
 
         greenhouse_gas = int(request.form['greenhouse gas'])
         energy_usage = int(request.form['energy usage'])
@@ -341,13 +348,11 @@ def envi():
         water_usage = int(request.form['water usage'])
         waste_emissions = int(request.form['waste emissions'])
 
-        # Create a 2D array of the input feature values
         input_data = [[greenhouse_gas, energy_usage, Hazardous_Chemical, water_usage, waste_emissions]]
         features = ["온실가스 배출량", "에너지 사용량", "유해화학물질 배출량", "용수 사용량", "폐기물 배출량"]
         datafile = './envi data.csv'
         target = "환경"
 
-        # Process the data and make predictions
         predicted_grade = envi_process_data_and_predict(input_data, datafile, features, target)
 
         return render_template('envi.html', predicted_grade=predicted_grade[0])
@@ -359,7 +364,6 @@ def envi():
 def envi_scenario():
 
     if request.method == 'POST':
-        # Get input feature values from the form
 
         greenhouse_gas = int(request.form['greenhouse gas'])
         energy_usage = int(request.form['energy usage'])
@@ -367,7 +371,6 @@ def envi_scenario():
         water_usage = int(request.form['water usage'])
         waste_emissions = int(request.form['waste emissions'])
 
-        # Create a 2D array of the input feature values
         input_data = [[greenhouse_gas, energy_usage, Hazardous_Chemical, water_usage, waste_emissions]]
         features = ["온실가스 배출량", "에너지 사용량", "유해화학물질 배출량", "용수 사용량", "폐기물 배출량"]
         datafile = './envi data.csv'
@@ -388,7 +391,6 @@ def envi_scenario():
             
         }
 
-        # Process the data and make predictions
         predicted_grade, gb_clf, le = envi_process_data_and_predict(input_data, datafile, features, target)
         report, plot_url = create_report(gb_clf, le, features, input_data, scenario)
 
@@ -399,7 +401,6 @@ def envi_scenario():
 @app.route('/social', methods=['GET', 'POST'])
 def social():
     if request.method == 'POST':
-        # Get input feature values from the form
 
         new_recruitment = float(request.form['New Recruitment'])
         resignation_retirement = float(request.form['resignation retirement'])
@@ -408,13 +409,11 @@ def social():
         social_contribution = int(request.form['social contribution'])
         industrial_accident = float(request.form['industrial accident'])
 
-        # Create a 2D array of the input feature values
         input_data = [[new_recruitment, resignation_retirement, female_workers, training_hours, social_contribution, industrial_accident]]
         features = ["신규채용", "이직 및 퇴직", "여성 근로자 (합)", "교육 시간", "사회 공헌 및 투자", "산업재해"]
         datafile = './social data.csv'
         target = "사회"
 
-        # Process the data and make predictions
         predicted_grade = social_process_data_and_predict(input_data, datafile, features, target)
 
         return render_template('social.html', predicted_grade=predicted_grade[0])
@@ -426,7 +425,6 @@ def social():
 def social_scenario():
 
     if request.method == 'POST':
-        # Get input feature values from the form
 
         new_recruitment = float(request.form['New Recruitment'])
         resignation_retirement = float(request.form['resignation retirement'])
@@ -435,7 +433,6 @@ def social_scenario():
         social_contribution = int(request.form['social contribution'])
         industrial_accident = float(request.form['industrial accident'])
 
-        # Create a 2D array of the input feature values
         input_data = [[new_recruitment, resignation_retirement, female_workers, training_hours, social_contribution, industrial_accident]]
         features = ["신규채용", "이직 및 퇴직", "여성 근로자 (합)", "교육 시간", "사회 공헌 및 투자", "산업재해"]
         datafile = './social data.csv'
@@ -459,7 +456,6 @@ def social_scenario():
             
         }
 
-        # Process the data and make predictions
         predicted_grade, gb_clf, le = social_process_data_and_predict(input_data, datafile, features, target)
         report, plot_url = create_report(gb_clf, le, features, input_data, scenario)
 
@@ -470,7 +466,6 @@ def social_scenario():
 @app.route('/gov', methods=['GET', 'POST'])
 def gov():
     if request.method == 'POST':
-        # Get input feature values from the form
 
         attendance_rate = float(request.form['attendance rate'])
         board_of_directors = int(request.form['board of directors'])
@@ -478,13 +473,11 @@ def gov():
         audit_committee = int(request.form['audit committee'])
         stock = float(request.form['stock'])
 
-        # Create a 2D array of the input feature values
         input_data = [[attendance_rate, board_of_directors, number_of_board_members, audit_committee, stock]]
         features = [ "이사 출석률","이사회 현황 횟수","이사 명수","감사위원회 운영 횟수","발행 주식수 / 발행 가능 주식수"]
         datafile = './gov data.csv'
         target = "지배구조"
 
-        # Process the data and make predictions
         predicted_grade = gov_process_data_and_predict(input_data, datafile, features, target)
 
         return render_template('gov.html', predicted_grade=predicted_grade[0])
@@ -496,7 +489,6 @@ def gov():
 def gov_scenario():
 
     if request.method == 'POST':
-        # Get input feature values from the form
 
         attendance_rate = float(request.form['attendance rate'])
         board_of_directors = int(request.form['board of directors'])
@@ -504,7 +496,6 @@ def gov_scenario():
         audit_committee = int(request.form['audit committee'])
         stock = float(request.form['stock'])
 
-        # Create a 2D array of the input feature values
         input_data = [[attendance_rate, board_of_directors, number_of_board_members, audit_committee, stock]]
         features = [ "이사 출석률","이사회 현황 횟수","이사 명수","감사위원회 운영 횟수","발행 주식수 / 발행 가능 주식수"]
         datafile = './gov data.csv'
@@ -525,7 +516,6 @@ def gov_scenario():
             
         }
 
-        # Process the data and make predictions.
         predicted_grade, gb_clf, le = gov_process_data_and_predict(input_data, datafile, features, target)
         report, plot_url = create_report(gb_clf, le, features, input_data, scenario)
 
