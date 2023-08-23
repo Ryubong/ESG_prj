@@ -132,47 +132,37 @@
     <!-- slider, text 동기화-->
     <script>
         $(document).ready(function() { 
-            // Update text input when the slider value changes
             $('#attendancerateSlider').on('input', function() {
                 $('#attendancerate').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#attendancerate').on('input', function() {
                 $('#attendancerateSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#boardofdirectorsSlider').on('input', function() {
                 $('#boardofdirectors').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#boardofdirectors').on('input', function() {
                 $('#boardofdirectorsSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#numberofboardmembersSlider').on('input', function() {
                 $('#numberofboardmembers').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#numberofboardmembers').on('input', function() {
                 $('#numberofboardmembersSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#auditcommitteeSlider').on('input', function() {
                 $('#auditcommittee').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#auditcommittee').on('input', function() {
                 $('#auditcommitteeSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#idstockSlider').on('input', function() {
                 $('#idstock').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#idstock').on('input', function() {
                 $('#idstockSlider').val($(this).val());
             });

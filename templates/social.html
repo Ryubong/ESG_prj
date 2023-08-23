@@ -129,7 +129,6 @@
     <!-- slider, text 동기화-->
     <script>
         $(document).ready(function() { 
-            // Update text input when the slider value changes
             $('#NewRecruitmentSlider').on('input', function() {
                 $('#NewRecruitment').val($(this).val());
             });
@@ -137,47 +136,37 @@
                 $('#NewRecruitment').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#resignationretirementSlider').on('input', function() {
                 $('#resignationretirement').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#resignationretirement').on('input', function() {
                 $('#resignationretirementSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#femaleworkersSlider').on('input', function() {
                 $('#femaleworkers').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#femaleworkers').on('input', function() {
                 $('#femaleworkersSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#traininghoursSlider').on('input', function() {
                 $('#traininghours').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#traininghours').on('input', function() {
                 $('#traininghoursSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#socialcontributionSlider').on('input', function() {
                 $('#socialcontribution').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#socialcontribution').on('input', function() {
                 $('#socialcontributionSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#industrialaccidentSlider').on('input', function() {
                 $('#industrialaccident').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#industrialaccident').on('input', function() {
                 $('#industrialaccidentSlider').val($(this).val());
             });

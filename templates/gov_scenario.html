@@ -27,7 +27,7 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             position: relative;
             margin-top: 80px; /* 고정된 헤더의 높이만큼 여백 추가 */
-            height: 80vh; /* 예를 들면, 화면 높이의 80%만큼만 표시 */
+            height: 80vh; /* 화면 높이의 80%만큼만 표시 */
             overflow-y: auto; /* 세로로 스크롤 표시 */
         }
 
@@ -113,7 +113,7 @@
     
         position: absolute;
         z-index: 1;
-        bottom: 10%; /* 툴팁 위치를 버튼 위로 변경 */
+        bottom: 10%;
         left: 50%;
         margin-left: -110px;
     
@@ -264,7 +264,7 @@
         $(document).ready(function() {
             $('#goBackButton').on('click', function() {
                 window.location.href = '/';
-                return false; // 이벤트 전파 및 기본 동작 방지
+                return false;
             });
         });
 

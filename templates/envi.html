@@ -126,7 +126,6 @@
     <!-- slider, text 동기화-->
     <script>
         $(document).ready(function() { 
-            // Update text input when the slider value changes
             $('#greenhousegasSlider').on('input', function() {
                 $('#greenhousegas').val($(this).val());
             });
@@ -134,38 +133,30 @@
                 $('#greenhousegasSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#energyusageSlider').on('input', function() {
                 $('#energyusage').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#energyusage').on('input', function() {
                 $('#energyusageSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#HazardousChemicalSlider').on('input', function() {
                 $('#HazardousChemical').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#HazardousChemical').on('input', function() {
                 $('#HazardousChemicalSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#waterusageSlider').on('input', function() {
                 $('#waterusage').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#waterusage').on('input', function() {
                 $('#waterusageSlider').val($(this).val());
             });
 
-            // Update text input when the slider value changes
             $('#wasteemissionsSlider').on('input', function() {
                 $('#wasteemissions').val($(this).val());
             });
-            // Update the slider when the text input value changes
             $('#wasteemissions').on('input', function() {
                 $('#wasteemissionsSlider').val($(this).val());
             });
