@@ -11,12 +11,16 @@
     </script>
     <style>
         body {
-            background-image: url('../static/images/background.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        background-image: url('../static/images/background_0.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        transition: background-image 0.5s ease-in-out; 
+        margin-bottom: 450vh; 
+
+
         }
-        
         .button {
             display: inline-block;
             padding: 0.8vw 1.5vw;
@@ -27,7 +31,7 @@
             border-radius: 15px;
             cursor: pointer;
             height: 4vw;
-            margin: 2vw;
+            margin: 1vw;
             width : 13vw;
         }
         
@@ -92,34 +96,26 @@
             border: none;
             border-radius: 10px;
         }
-
-        .background-section {
-            height: 1094px; /* Set to the height of the image */
-            width: 1796px; /* Set to the width of the image */
-            background-size: cover; /* This will ensure the images cover the div fully */
-            background-repeat: no-repeat;
-        }
-        .background-0 {
-            background-image: url('../static/images/background_0.jpg');
-        }
-
-        .background-1 {
-            background-image: url('../static/images/background1.jpg');
-        }
-
-        .background-2 {
-            background-image: url('../static/images/background2.jpg');
-        }
-
-        .background-3 {
-            background-image: url('../static/images/background3.jpg');
-        }
         
 
         
         
     </style>
     <script>
+    window.addEventListener("scroll", function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop <= window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background_0.jpg')";
+    } else if (scrollTop > window.innerHeight && scrollTop <= 2 * window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background1.jpg')";
+    } else if (scrollTop > 2 * window.innerHeight && scrollTop <= 3 * window.innerHeight) {
+        document.body.style.backgroundImage = "url('../static/images/background2.jpg')";
+    } else {
+        document.body.style.backgroundImage = "url('../static/images/background3.jpg')";
+    }
+});
+
         function showDialog() {
             var modal = document.getElementById("selectionModal");
             modal.style.display = "block";
@@ -162,7 +158,6 @@
 </head>
 
 <body>
-
     <div class="button-container">
         <div class="selection-container">
             <button class="button" onclick="showDialog()">예측하기</button>
