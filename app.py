@@ -312,8 +312,8 @@ def create_report(model, encoder, features, data, scenario):
     fig, ax = plt.subplots()
     bar_width = 0.35
 
-    original_rects = ax.bar(x - bar_width/2, original_probs[0], bar_width, label='Before')
-    modified_rects = ax.bar(x + bar_width/2, modified_probs[0], bar_width, label='After')
+    original_rects = ax.bar(x - bar_width/2, original_probs[0], bar_width, label='Current')
+    modified_rects = ax.bar(x + bar_width/2, modified_probs[0], bar_width, label='Expected')
 
     
     ax.set_ylabel('예측 확률', fontproperties=FontProperties(fname=font_path))
