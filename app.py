@@ -303,10 +303,10 @@ def create_report(model, encoder, features, data, scenario):
 
     labels = encoder.classes_
 
-    font_path = 'C:/Users/fbgus/AppData/Local/Microsoft/Windows/Fonts/NanumGothic.ttf'
-    font_prop = FontProperties(fname=font_path)
-    matplotlib.rcParams['font.family'] = 'Malgun Gothic'  # 또는 'AppleGothic' 등 다른 한글 글꼴로 변경
-    matplotlib.rcParams['font.size'] = 11
+    # font_path = 'C:/Users/fbgus/AppData/Local/Microsoft/Windows/Fonts/NanumGothic.ttf'
+    # font_prop = FontProperties(fname=font_path)
+    # matplotlib.rcParams['font.family'] = 'Malgun Gothic'  # 또는 'AppleGothic' 등 다른 한글 글꼴로 변경
+    # matplotlib.rcParams['font.size'] = 11
              
     x = np.arange(len(labels))
     fig, ax = plt.subplots()
@@ -315,9 +315,9 @@ def create_report(model, encoder, features, data, scenario):
     original_rects = ax.bar(x - bar_width/2, original_probs[0], bar_width, label='Current')
     modified_rects = ax.bar(x + bar_width/2, modified_probs[0], bar_width, label='Expected')
 
-    
-    ax.set_ylabel('예측 확률', fontproperties=FontProperties(fname=font_path))
-    ax.set_title('시나리오 예측 등급별 확률', fontproperties=FontProperties(fname=font_path))
+    # fontproperties=FontProperties(fname=font_path)
+    ax.set_ylabel('probability' )
+    ax.set_title('Scenario predict probability')
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.legend()
